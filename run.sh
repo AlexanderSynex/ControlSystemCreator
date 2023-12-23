@@ -1,3 +1,3 @@
 #! /bin/sh
-
-clear && python3.10 main.py
+#!/usr/bin/env python3.10
+clear && python main.py
