@@ -1,2 +1,2 @@
 # ControlSystemCreator
-PyQt based editor
+PyQt6 based editor
