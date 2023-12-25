@@ -1,3 +1,5 @@
+from .ISystem import ISystem
+
 # Metaclass
 class Singleton(type):
     _instances = {}
@@ -8,15 +10,29 @@ class Singleton(type):
 
 
 # Manager purposed to store names of created systems and grant their uniqueness
-class SystemNamesManager(metaclass=Singleton):
-    names = []
+class SystemManager(metaclass=Singleton):
+    systems = {}
 
-    def add(cls, name):
-        if name not in cls.names:
-            cls.names.append(name)
+    def __add(cls, system):
+        name = system.get_name()
+        if name not in cls.systems:
+            print(name)
+            cls.systems[name] = system
+    
+    def __get(cls, name):
+        if name in cls.systems:
+            return cls.systems[name]
+        return None
+    
+    def get_instance(cls, name : str = "", Inputs = [], Outputs = []):
+        system = cls.__get(name)
+        if system is None:
+            system = ISystem(name, Inputs=Inputs, Outputs=Outputs)
+            cls.__add(system)
+        return system
     
     def clear(cls):
-        cls.names = []
+        cls.names = {}
     
     def exists(cls, name):
-        return name in cls.names
+        return name in cls.systems
