@@ -3,17 +3,17 @@ from .Singleton import Singleton
 
 # Manager purposed to store names of created systems and grant their uniqueness
 class SystemManager(metaclass=Singleton):
-    systems = {}
+    _systems = {}
 
     def __add(cls, system):
         name = system.get_name()
-        if name not in cls.systems:
+        if name not in cls._systems:
             print(name)
-            cls.systems[name] = system
+            cls._systems[name] = system
     
     def __get(cls, name):
-        if name in cls.systems:
-            return cls.systems[name]
+        if name in cls._systems:
+            return cls._systems[name]
         return None
     
     def get_instance(cls, name : str = "", Inputs = [], Outputs = []):
@@ -27,4 +27,4 @@ class SystemManager(metaclass=Singleton):
         cls.names = {}
     
     def exists(cls, name):
-        return name in cls.systems
+        return cls.__get(name) != None
