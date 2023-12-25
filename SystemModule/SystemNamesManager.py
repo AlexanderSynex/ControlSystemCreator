@@ -1,13 +1,5 @@
 from .ISystem import ISystem
-
-# Metaclass
-class Singleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
-
+from .Singleton import Singleton
 
 # Manager purposed to store names of created systems and grant their uniqueness
 class SystemManager(metaclass=Singleton):
