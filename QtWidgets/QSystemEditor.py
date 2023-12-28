@@ -13,7 +13,7 @@ class QSystemEditor(QWidget):
     def init_UI(self):
         self.__window = QWidget()
         self.__layout = QHBoxLayout()
-        self.__layout.addWidget(QParametersEditor(), 1)
-        self.__layout.addWidget(QSystemSelector(), 0)
+        self.__layout.addWidget(QParametersEditor(), 4)
+        self.__layout.addWidget(QSystemSelector(), 1)
         self.setWindowTitle("System Editor")
         self.setLayout(self.__layout)
