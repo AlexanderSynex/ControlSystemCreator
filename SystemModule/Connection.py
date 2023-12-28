@@ -5,6 +5,9 @@ class Connection:
     
     def get_value(self):
         return self.value
-            
+    
     def get_name(self):
         return self.name
+    
+    def set_value(self, value : float):
+        self.value = value

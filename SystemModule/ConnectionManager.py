@@ -1,6 +1,8 @@
 from .Singleton import Singleton
 from .Connection import Connection
 
+import pandas as pd
+
 class ConnectionManager(metaclass=Singleton):
     _links = {}
     def __add(cls, link):
@@ -24,5 +26,21 @@ class ConnectionManager(metaclass=Singleton):
             cls.__add(link)
         return link
     
+    def set_value(cls, name : str, value : float):
+        link = cls.__get(name)
+        if link is not None:
+            link.set_value(value)
+    
+    def get_instances(cls):
+        return list(cls._links.keys())
+    
     def exists(cls, name):
         return cls.__get(name) != None
+    
+    # TODO
+    def load_from_csv(cls, path):
+        cls.clear()    
+        names = pd.read_csv(path).columns.values
+        
+        for name in names:
+            cls.get_instance(name)
