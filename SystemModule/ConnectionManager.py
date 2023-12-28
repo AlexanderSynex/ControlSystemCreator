@@ -40,7 +40,7 @@ class ConnectionManager(metaclass=Singleton):
     #Add specific number of internal links
     def create_internal_connection(cls, link_number : int = 1):
         for i in range(link_number):
-            name = f"link{cls.__internal_link_number}"
+            name = f"_link{cls.__internal_link_number}"
             cls.get_instance(name)
             cls.__internal_link_number += 1
     
