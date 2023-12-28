@@ -5,6 +5,7 @@ import pandas as pd
 
 class ConnectionManager(metaclass=Singleton):
     _links = {}
+    __internal_link_number = 1
     
     def __add(cls, link):
         name = link.get_name()
@@ -21,6 +22,7 @@ class ConnectionManager(metaclass=Singleton):
     
     def clear(cls):
         cls._links = {}
+        cls.__internal_link_number = 1
     
     
     def get_instance(cls, name : str, value : float = 0):
@@ -34,6 +36,13 @@ class ConnectionManager(metaclass=Singleton):
     def get_instances(cls):
         return list(cls._links.keys())
     
+    
+    #Add specific number of internal links
+    def create_internal_connection(cls, link_number : int = 1):
+        for i in range(link_number):
+            name = f"link{cls.__internal_link_number}"
+            cls.get_instance(name)
+            cls.__internal_link_number += 1
     
     def set_value(cls, name : str, value : float):
         link = cls.__get(name)
