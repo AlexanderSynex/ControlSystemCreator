@@ -6,3 +6,9 @@ class ISystem:
         
     def get_name(self):
         return self.name
+    
+    def add_inputs(self, Inputs):
+        self.Inputs.append(Inputs)
+        
+    def add_outputs(self, Outputs):
+        self.Outputs.append(Outputs)
