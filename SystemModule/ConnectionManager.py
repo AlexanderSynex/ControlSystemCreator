@@ -4,24 +4,24 @@ from .Connection import Connection
 import pandas as pd
 
 class ConnectionManager(metaclass=Singleton):
-    _links = {}
+    __links = {}
     __internal_link_number = 1
     
     def __add(cls, link):
         name = link.get_name()
-        if name not in cls._links:
+        if name not in cls.__links:
             print(f"Link added: {name}")
-            cls._links[name] = link
+            cls.__links[name] = link
     
     
     def __get(cls, name):
-        if name in cls._links:
-            return cls._links[name]
+        if name in cls.__links:
+            return cls.__links[name]
         return None
     
     
     def clear(cls):
-        cls._links = {}
+        cls.__links = {}
         cls.__internal_link_number = 1
     
     
@@ -33,8 +33,18 @@ class ConnectionManager(metaclass=Singleton):
         return link
     
     
-    def get_instances(cls):
-        return list(cls._links.keys())
+    def get_instances(cls, names = []):
+        # Return all keys
+        if not names:
+            return list(cls.__links.keys())
+        
+        links = []
+        for name in names:
+            link = cls.__get(name)
+            if link is not None:
+                links.append(link)
+            
+        return links
     
     
     #Add specific number of internal links
