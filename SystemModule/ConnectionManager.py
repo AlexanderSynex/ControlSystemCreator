@@ -49,10 +49,13 @@ class ConnectionManager(metaclass=Singleton):
     
     #Add specific number of internal links
     def create_internal_connection(cls, link_number : int = 1):
+        links = []
         for i in range(link_number):
             name = f"_link{cls.__internal_link_number}"
-            cls.get_instance(name)
+            links.append(cls.get_instance(name))
             cls.__internal_link_number += 1
+        
+        return links
     
     def set_value(cls, name : str, value : float):
         link = cls.__get(name)
