@@ -1,33 +1,40 @@
 from PyQt6.QtWidgets import *
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 
 class QParametersEditor(QGroupBox):
+    
+    create_button_pressed = pyqtSignal()
+    
     def __init__(self, parent=None):
         super().__init__("Parameters Editor")
         
         self.__init_UI()
         
-    def __init_UI(self):        
+        
+    def __init_UI(self):
         __layout = QVBoxLayout()
         
         __name_label = QLabel("Имя системы")
         __name_edit  = QLineEdit()
         
-        
         __input_gb = QGroupBox("Входные сигналы")
         __input_layout = QVBoxLayout()
         self.__input_lw = QListWidget()
-        
+    
         __input_layout.addWidget(self.__input_lw)
         __input_gb.setLayout(__input_layout)
         
         __output_gb = QGroupBox("Выходные сигналы")
-        __output_layout = QVBoxLayout()
-        __output_lw = QListWidget()
-        __output_layout.addWidget(__output_lw)
+        __output_layout = QHBoxLayout()
+        __output_number_edit = QSpinBox()
+        __output_number_edit.setMinimum(1)
+        __output_number_name = QLabel("Количество сигналов")
+        __output_number_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        __output_layout.addWidget(__output_number_name, 0)
+        __output_layout.addWidget(__output_number_edit, 1)
         __output_gb.setLayout(__output_layout)
         
-        __io_layout = QHBoxLayout()
+        __io_layout = QVBoxLayout()
         __io_layout.addWidget(__input_gb)
         __io_layout.addWidget(__output_gb)
         
@@ -47,8 +54,11 @@ class QParametersEditor(QGroupBox):
         
         __layout.addLayout(__final_layout)
         
+        __create_button.clicked.connect(self.create_button_pressed)
+        
         self.setLayout(__layout)
         
+    
     def update_parameters_list(self, parameters):
         for parameter in parameters:
             item = QListWidgetItem(parameter)

@@ -26,7 +26,7 @@ class QSystemEditor(QMainWindow):
         self.__layout = QHBoxLayout()
         
         self.__parameters_edit = QParametersEditor()
-        
+        self.__parameters_edit.create_button_pressed.connect(self.__create_system)
         self.__layout.addWidget(self.__parameters_edit, 4)
         self.__layout.addWidget(QSystemSelector(), 1)
         self.__window.setLayout(self.__layout)
@@ -35,6 +35,9 @@ class QSystemEditor(QMainWindow):
         
         self.statusBar().showMessage("")
         
+        
+    def __create_system(self):
+        print("button pressed")
         
     def __load__input_links_action(self):
         # fileName, _ = QFileDialog.getOpenFileName(self, 
