@@ -6,6 +6,7 @@ from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
 from ..SystemModule import ConnectionManager
+from ..SystemModule import SystemManager
 
 class QSystemEditor(QMainWindow):
     def __init__(self, parent = None):
@@ -36,8 +37,19 @@ class QSystemEditor(QMainWindow):
         self.statusBar().showMessage("")
         
         
-    def __create_system(self):
-        print("button pressed")
+    def __create_system(self, params):
+        name = params['name']
+        inputs = params['inputs']
+        outputs = params['outputs']
+        
+        if SystemManager().exists(name):
+            print("System already exists")
+            return
+        
+        SystemManager().get_instance(name=name,
+                                     Inputs=inputs,
+                                     Outputs=outputs)
+    
         
     def __load__input_links_action(self):
         # fileName, _ = QFileDialog.getOpenFileName(self, 
