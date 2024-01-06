@@ -9,6 +9,9 @@ from ..SystemModule import ConnectionManager
 from ..SystemModule import SystemManager
 
 class QSystemEditor(QMainWindow):
+    
+    system_created = pyqtSignal(object)
+    
     def __init__(self, parent = None):
         super().__init__(parent)
         
@@ -53,8 +56,13 @@ class QSystemEditor(QMainWindow):
                                            Inputs=inputs,
                                            Outputs=outputs)
         
-        if sys is not None:
-            self.__show_success_status(f"System {name} created")
+        if sys is None:
+            self.__show_error_status(f"System {name} can not be created")
+            return
+        
+        self.__show_success_status(f"System {name} created")
+        self.system_created.emit(sys)
+            
             
         
     def __load__input_links_action(self):
