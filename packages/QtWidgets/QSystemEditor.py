@@ -34,7 +34,7 @@ class QSystemEditor(QMainWindow):
         self.setCentralWidget(self.__window)
         self.setWindowTitle("System Editor")
         
-        self.statusBar().showMessage("")
+        self.__clear_status()
         
         
     def __create_system(self, params):
@@ -42,8 +42,9 @@ class QSystemEditor(QMainWindow):
         inputs = params['inputs']
         outputs = params['outputs']
         
+        self.__clear_status()
         if SystemManager().exists(name):
-            print("System already exists")
+            self.__show_error_status(f"System {name} already exists")
             return
         
         SystemManager().get_instance(name=name,
@@ -72,3 +73,11 @@ class QSystemEditor(QMainWindow):
         self.statusBar().showMessage(f"Loaded {len(links)} parameters")
         
         self.__parameters_edit.update_parameters_list(links)
+        
+    
+    def __clear_status(self):
+        self.statusBar().showMessage("")
+    
+    
+    def __show_error_status(self, message):
+        self.statusBar().showMessage(f"ERROR: {message}")
