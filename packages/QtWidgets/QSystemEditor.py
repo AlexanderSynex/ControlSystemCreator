@@ -34,6 +34,8 @@ class QSystemEditor(QMainWindow):
         self.setCentralWidget(self.__window)
         self.setWindowTitle("System Editor")
         
+        self.__status_bar_label = QLabel()
+        self.statusBar().addWidget(self.__status_bar_label)
         self.__clear_status()
         
         
@@ -47,10 +49,13 @@ class QSystemEditor(QMainWindow):
             self.__show_error_status(f"System {name} already exists")
             return
         
-        SystemManager().get_instance(name=name,
-                                     Inputs=inputs,
-                                     Outputs=outputs)
-    
+        sys = SystemManager().get_instance(name=name,
+                                           Inputs=inputs,
+                                           Outputs=outputs)
+        
+        if sys is not None:
+            self.__show_success_status(f"System {name} created")
+            
         
     def __load__input_links_action(self):
         # fileName, _ = QFileDialog.getOpenFileName(self, 
@@ -76,8 +81,12 @@ class QSystemEditor(QMainWindow):
         
     
     def __clear_status(self):
-        self.statusBar().showMessage("")
+        self.__status_bar_label.setText("")
+    
+    
+    def __show_success_status(self, message):
+        self.__status_bar_label.setText(f"<b>SUCCESS</b>: {message}")
     
     
     def __show_error_status(self, message):
-        self.statusBar().showMessage(f"ERROR: {message}")
+        self.__status_bar_label.setText(f"<b>ERROR</b>: {message}")
