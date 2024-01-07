@@ -73,8 +73,8 @@ class QSystemEditor(QMainWindow):
         self.__parameters_edit.update_parameters_list(links)
         
         sys.print()
-            
-        
+
+
     def __load__input_links_action(self):
         # fileName, _ = QFileDialog.getOpenFileName(self, 
         #                                        caption="Load inputs", 
@@ -84,7 +84,7 @@ class QSystemEditor(QMainWindow):
         fileName = "./Data/file1.csv"
         
         if not fileName:
-            self.statusBar().showMessage("No parameters loaded")
+            self.__show_error_status("No parameters loaded")
             return
         
         ConnectionManager().clear()
@@ -93,8 +93,8 @@ class QSystemEditor(QMainWindow):
         links = ConnectionManager().get_keys()
         
         if not links:
-            self.statusBar().showMessage("No parameters loaded")
-        self.statusBar().showMessage(f"Loaded {len(links)} parameters")
+            self.__show_error_status("No parameters loaded")
+        self.__show_success_status(f"Loaded {len(links)} parameters")
         
         self.__parameters_edit.clear_parameters_list()
         self.__parameters_edit.update_parameters_list(links)
