@@ -8,7 +8,7 @@ from .QParametersEditor import QParametersEditor
 from ..SystemModule import ConnectionManager
 from ..SystemModule import SystemManager
 
-from .DisplayItems import QSystemInfoItem
+from .DisplayItems import QSystemInfo
 
 class QSystemEditor(QMainWindow):
     
@@ -80,7 +80,13 @@ class QSystemEditor(QMainWindow):
         
         self.__parameters_edit.update_parameters_list(links)
         
-        self.__system_selector.addItem(QSystemInfoItem(system=sys))
+        widget = QSystemInfo(system=sys)
+        item = QListWidgetItem(parent=self.__system_selector)
+        
+        item.setSizeHint(widget.minimumSizeHint())
+        
+        self.__system_selector.setItemWidget(item, widget)
+        #self.__system_selector.addItem()
         
         sys.print()
 
