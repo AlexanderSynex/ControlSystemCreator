@@ -17,7 +17,6 @@ class SystemManager(metaclass=Singleton):
         return None
     
     def get_instance(cls, name : str = "", Inputs = [], Outputs = []):
-        print(f"System Manager. {name}, {Inputs}, {Outputs}")
         system = cls.__get(name)
         if system is None:
             system = ISystem(name, Inputs=Inputs, Outputs=Outputs)
