@@ -21,6 +21,7 @@ class ConnectionManager(metaclass=Singleton):
     
     
     def clear(cls):
+        print(f"ConnectionManager. Links deleted")
         cls.__links = {}
         cls.__internal_link_number = 1
     
@@ -66,7 +67,6 @@ class ConnectionManager(metaclass=Singleton):
     
     
     def load_from_csv(cls, path):
-        cls.clear()    
         names = pd.read_csv(path).columns.values
         
         for name in names:

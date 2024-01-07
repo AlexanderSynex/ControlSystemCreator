@@ -60,7 +60,11 @@ class QParametersEditor(QGroupBox):
             self.create_button_pressed.emit(self.__get_system_attributes()))
         
         self.setLayout(__layout)
-        
+    
+    
+    def clear_parameters_list(self):
+        self.__input_lw.clear()
+    
     
     def update_parameters_list(self, parameters):
         for parameter in parameters:

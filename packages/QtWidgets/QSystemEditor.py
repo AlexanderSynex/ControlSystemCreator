@@ -87,6 +87,7 @@ class QSystemEditor(QMainWindow):
             self.statusBar().showMessage("No parameters loaded")
             return
         
+        ConnectionManager().clear()
         ConnectionManager().load_from_csv(fileName)
         
         links = ConnectionManager().get_keys()
@@ -95,6 +96,7 @@ class QSystemEditor(QMainWindow):
             self.statusBar().showMessage("No parameters loaded")
         self.statusBar().showMessage(f"Loaded {len(links)} parameters")
         
+        self.__parameters_edit.clear_parameters_list()
         self.__parameters_edit.update_parameters_list(links)
         
     
