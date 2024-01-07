@@ -8,6 +8,8 @@ from .QParametersEditor import QParametersEditor
 from ..SystemModule import ConnectionManager
 from ..SystemModule import SystemManager
 
+from .DisplayItems import QSystemInfoItem
+
 class QSystemEditor(QMainWindow):
     
     system_created = pyqtSignal(object)
@@ -32,7 +34,13 @@ class QSystemEditor(QMainWindow):
         self.__parameters_edit = QParametersEditor()
         self.__parameters_edit.create_button_pressed.connect(self.__create_system)
         self.__layout.addWidget(self.__parameters_edit, 4)
-        self.__layout.addWidget(QSystemSelector(), 1)
+        
+        self.__system_selector = QSystemSelector()
+        __selector_container = QGroupBox("System selector")
+        __selector_layout = QHBoxLayout(__selector_container)
+        __selector_layout.addWidget(self.__system_selector)
+        
+        self.__layout.addWidget(__selector_container, 1)
         self.__window.setLayout(self.__layout)
         self.setCentralWidget(self.__window)
         self.setWindowTitle("System Editor")
@@ -71,6 +79,8 @@ class QSystemEditor(QMainWindow):
             links.append(link.get_name())
         
         self.__parameters_edit.update_parameters_list(links)
+        
+        self.__system_selector.addItem(QSystemInfoItem(system=sys))
         
         sys.print()
 
