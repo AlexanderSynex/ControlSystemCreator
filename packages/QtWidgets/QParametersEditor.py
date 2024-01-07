@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
+from .DisplayItems import QLinkItem
+
 from ..SystemModule import SystemManager
 
 class QParametersEditor(QGroupBox):
@@ -69,9 +71,8 @@ class QParametersEditor(QGroupBox):
     
     def update_parameters_list(self, parameters):
         for parameter in parameters:
-            item = QListWidgetItem(parameter)
-            item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
-            item.setCheckState(Qt.CheckState.Unchecked)
+            item = QLinkItem(parameter)
+
             self.__input_lw.addItem(item)
     
     

@@ -4,4 +4,9 @@ from PyQt6.QtGui import *
 
 
 class QLinkItem(QListWidgetItem):
-    pass
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.setFlags(self.flags() | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+        self.setCheckState(Qt.CheckState.Unchecked)

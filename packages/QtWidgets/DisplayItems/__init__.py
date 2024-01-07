@@ -1,1 +1,1 @@
-from QLinkItem import *
+from .QLinkItem import QLinkItem
