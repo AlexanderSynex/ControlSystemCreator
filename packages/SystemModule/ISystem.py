@@ -16,6 +16,7 @@ class ISystem:
     def print(self):
         print(f"system: {self.get_name()}")
         print(f"Inputs:")
+        print(self.__Inputs)
         for i, link in enumerate(self.__Inputs):
             print(f"{i + 1}:\t{link.get_name()}")
         print(f"Outputs:")

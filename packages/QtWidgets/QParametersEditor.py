@@ -63,7 +63,6 @@ class QParametersEditor(QGroupBox):
         
     
     def update_parameters_list(self, parameters):
-        print(parameters)
         for parameter in parameters:
             item = QListWidgetItem(parameter)
             item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)

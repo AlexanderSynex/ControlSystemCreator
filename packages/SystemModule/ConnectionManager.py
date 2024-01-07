@@ -34,17 +34,15 @@ class ConnectionManager(metaclass=Singleton):
     
     
     def get_instances(cls, names = []):
-        # Return all keys
-        if not names:
-            return list(cls.__links.keys())
-        
         links = []
         for name in names:
-            link = cls.__get(name)
-            if link is not None:
-                links.append(link)
-            
+            links.append(cls.get_instance(name))
         return links
+    
+    
+    # Return all keys
+    def get_keys(cls):
+        return list(cls.__links.keys())
     
     
     #Add specific number of internal links

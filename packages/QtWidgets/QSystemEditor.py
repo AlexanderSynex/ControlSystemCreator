@@ -52,8 +52,9 @@ class QSystemEditor(QMainWindow):
             self.__show_error_status(f"System {name} already exists")
             return
         
-        inputs = ConnectionManager().get_instances(input_names)
+        inputs = ConnectionManager().get_instances(names=input_names)
         outputs = ConnectionManager().create_internal_connections(output_number)
+        
         sys = SystemManager().get_instance(name=name,
                                            Inputs=inputs,
                                            Outputs=outputs)
@@ -65,8 +66,13 @@ class QSystemEditor(QMainWindow):
         self.__show_success_status(f"System {name} created")
         self.system_created.emit(sys)
         
+        links = []
+        for link in outputs:
+            links.append(link.get_name())
+        
+        self.__parameters_edit.update_parameters_list(links)
+        
         sys.print()
-            
             
         
     def __load__input_links_action(self):
@@ -83,7 +89,7 @@ class QSystemEditor(QMainWindow):
         
         ConnectionManager().load_from_csv(fileName)
         
-        links = ConnectionManager().get_instances()
+        links = ConnectionManager().get_keys()
         
         if not links:
             self.statusBar().showMessage("No parameters loaded")
