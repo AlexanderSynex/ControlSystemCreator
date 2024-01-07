@@ -44,14 +44,16 @@ class QSystemEditor(QMainWindow):
         
     def __create_system(self, params):
         name = params['name']
-        inputs = params['inputs']
-        outputs = params['outputs']
+        input_names = params['inputs']
+        output_number = params['outputs']
         
         self.__clear_status()
         if SystemManager().exists(name):
             self.__show_error_status(f"System {name} already exists")
             return
         
+        inputs = ConnectionManager().get_instances(input_names)
+        outputs = ConnectionManager().create_internal_connections(output_number)
         sys = SystemManager().get_instance(name=name,
                                            Inputs=inputs,
                                            Outputs=outputs)
@@ -62,6 +64,8 @@ class QSystemEditor(QMainWindow):
         
         self.__show_success_status(f"System {name} created")
         self.system_created.emit(sys)
+        
+        sys.print()
             
             
         
