@@ -43,9 +43,6 @@ class QParametersEditor(QGroupBox):
         __io_layout.addWidget(__input_gb)
         __io_layout.addWidget(__output_gb)
         
-        __final_layout = QGridLayout()
-        __final_name = QLabel("Получаемая система")
-        __overview_tb = QTextBrowser()
         __create_button = QPushButton("Создать систему")
         
         __layout.addWidget(__name_label)
@@ -53,11 +50,7 @@ class QParametersEditor(QGroupBox):
         
         __layout.addLayout(__io_layout)
         
-        __final_layout.addWidget(__final_name, 0, 0, 1, 1)
-        __final_layout.addWidget(__overview_tb, 1, 0, 2, 1)
-        __final_layout.addWidget(__create_button, 1, 1, 2, 1)
-        
-        __layout.addLayout(__final_layout)
+        __layout.addWidget(__create_button)
         
         __create_button.clicked.connect(lambda : 
             self.create_button_pressed.emit(self.__get_system_attributes()))
