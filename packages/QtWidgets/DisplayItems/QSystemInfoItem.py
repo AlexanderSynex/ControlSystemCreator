@@ -11,5 +11,5 @@ class QSystemInfo(QWidget):
         
         self.__layout = QVBoxLayout(self)
         self.__layout.addWidget(QLabel(f"<b>Name</b>={self.system.get_name()}"))
-        self.__layout.addWidget(QLabel(f"<b>Inputs</b>: {0}"))
-        self.__layout.addWidget(QLabel(f"<b>Outputs</b>: {0}"))
+        self.__layout.addWidget(QLabel(f"<b>Inputs</b>: {len(self.system.get_input_keys())}"))
+        self.__layout.addWidget(QLabel(f"<b>Outputs</b>: {len(self.system.get_output_keys())}"))
