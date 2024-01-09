@@ -80,13 +80,7 @@ class QSystemEditor(QMainWindow):
         
         self.__parameters_edit.update_parameters_list(links)
         
-        widget = QSystemInfo(system=sys)
-        item = QListWidgetItem(parent=self.__system_selector)
-        
-        item.setSizeHint(widget.minimumSizeHint())
-        
-        self.__system_selector.setItemWidget(item, widget)
-        #self.__system_selector.addItem()
+        self.__system_selector.add_system(sys.get_name())
         
         sys.print()
 
