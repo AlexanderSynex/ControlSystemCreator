@@ -33,6 +33,7 @@ class QSystemEditor(QMainWindow):
         
         self.__parameters_edit = QParametersEditor()
         self.__parameters_edit.create_button_pressed.connect(self.__create_system)
+        self.__parameters_edit.incorrect_system_parameters.connect(self.__show_error_status)
         self.__layout.addWidget(self.__parameters_edit, 4)
         
         self.__system_selector = QSystemSelector()

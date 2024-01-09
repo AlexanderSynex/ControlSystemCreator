@@ -9,6 +9,7 @@ from ..SystemModule import SystemManager
 class QParametersEditor(QGroupBox):
     
     create_button_pressed = pyqtSignal(dict)
+    incorrect_system_parameters = pyqtSignal(str)
     
     def __init__(self, parent=None):
         super().__init__("Parameters Editor")
@@ -55,10 +56,17 @@ class QParametersEditor(QGroupBox):
         
         __layout.addWidget(__create_button)
         
-        __create_button.clicked.connect(lambda : 
-            self.create_button_pressed.emit(self.__get_system_attributes()))
+        __create_button.clicked.connect(self.create_system)
         
         self.setLayout(__layout)
+    
+    
+    def create_system(self):
+        if not self.__get_name():
+            self.incorrect_system_parameters.emit("System name empty")
+            return
+        
+        self.create_button_pressed.emit(self.__get_system_attributes())
     
     
     def clear_parameters_list(self):
