@@ -7,6 +7,18 @@ class ISystem:
     def get_name(self):
         return self.__name
     
+    def get_input_keys(self):
+        links = []
+        for link in self.__Inputs:
+            links.append(link.get_name())
+        return links
+    
+    def get_output_keys(self):
+        links = []
+        for link in self.__Outputs:
+            links.append(link.get_name())
+        return links
+    
     def add_inputs(self, Inputs):
         self.__Inputs.append(Inputs)
         
