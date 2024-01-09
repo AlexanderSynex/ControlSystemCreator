@@ -16,9 +16,7 @@ class QSystemSelector(QListWidget):
         if not SystemManager().exists(system_name):
             return
         
-        sys = SystemManager().get_instance(system_name)
-        
-        widget = QSystemInfo(system=sys)
+        widget = QSystemInfo(system_name=system_name)
         item = QListWidgetItem(parent=self)
         item.setSizeHint(widget.minimumSizeHint())
         self.setItemWidget(item, widget)

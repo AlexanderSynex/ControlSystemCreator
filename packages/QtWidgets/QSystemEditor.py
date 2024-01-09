@@ -56,6 +56,7 @@ class QSystemEditor(QMainWindow):
         output_number = params['outputs']
         
         self.__clear_status()
+        
         if SystemManager().exists(name):
             self.__show_error_status(f"System {name} already exists")
             return
@@ -81,8 +82,6 @@ class QSystemEditor(QMainWindow):
         self.__parameters_edit.update_parameters_list(links)
         
         self.__system_selector.add_system(sys.get_name())
-        
-        sys.print()
 
 
     def __load__input_links_action(self):
