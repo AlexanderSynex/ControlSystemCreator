@@ -21,6 +21,9 @@ class QParametersEditor(QGroupBox):
         
         __name_label = QLabel("Имя системы")
         self.__name_edit  = QLineEdit()
+        regex = QRegularExpression("[a-zA-Z0-9]+")
+        validator = QRegularExpressionValidator(regex)
+        self.__name_edit.setValidator(validator)
         
         __input_gb = QGroupBox("Входные сигналы")
         __input_layout = QVBoxLayout()
