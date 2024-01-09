@@ -22,7 +22,7 @@ class QParametersEditor(QGroupBox):
         
         __name_label = QLabel("Имя системы")
         self.__name_edit  = QLineEdit()
-        regex = QRegularExpression("[a-zA-Z0-9]+")
+        regex = QRegularExpression("^[a-zA-Z][a-zA-Z0-9]+")
         validator = QRegularExpressionValidator(regex)
         self.__name_edit.setValidator(validator)
         
