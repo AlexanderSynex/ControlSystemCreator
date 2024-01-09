@@ -36,7 +36,7 @@ class QSystemEditor(QMainWindow):
         self.__layout.addWidget(self.__parameters_edit, 4)
         
         self.__system_selector = QSystemSelector()
-        __selector_container = QGroupBox("System selector")
+        __selector_container = QGroupBox("Created systems")
         __selector_layout = QHBoxLayout(__selector_container)
         __selector_layout.addWidget(self.__system_selector)
         
