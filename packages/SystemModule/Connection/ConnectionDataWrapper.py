@@ -21,4 +21,5 @@ class ConnectionDataWrapper(metaclass=Singleton):
         
         link = ConnectionManager().get_instance(name=link_name)
         
-        return json.dumps(dict(name=link_name, value=link.value))
+        return json.dumps(dict(name=link_name, 
+                               value=link.value))
