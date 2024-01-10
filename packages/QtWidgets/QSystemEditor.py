@@ -5,8 +5,10 @@ from PyQt6.QtGui import *
 from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
-from ..SystemModule import ConnectionManager, ConnectionDataWrapper
-from ..SystemModule import SystemManager
+from ..SystemModule import (ConnectionManager, 
+                            ConnectionDataWrapper)
+from ..SystemModule import (SystemManager, 
+                            SystemDataWrapper)
 
 from .DisplayItems import QSystemInfo
 
@@ -137,16 +139,21 @@ class QSystemEditor(QMainWindow):
             self.__show_error_status("No systems to save")
             return
         
-        names = SystemManager().get_keys()
+        fileName, _ = QFileDialog().getSaveFileName(self,
+                                                    caption="Save systems info",
+                                                    directory=QDir().homePath(), 
+                                                    filter="JavaScript Object Notation Files (*.json)")
         
-        json = QJsonObject()
+        if '.json' not in fileName:
+            fileName += '.json'
         
-        json["hello"] = 123123
+        file = QFile(fileName)
+        if not file.open(QIODevice.OpenModeFlag.WriteOnly | QIODevice.OpenModeFlag.Text):
+            self.__show_error_status("File to save could not be opened")
+            return
         
-        saveFile = QFile("hello.json")
-        saveFile.write(json)
+        QTextStream(file) << SystemDataWrapper().all_to_json()
+        file.close()
         
-        for name in names:
-            system = SystemManager().get_instance(name)
-            
+        self.__show_success_status(f"Systems saved in {fileName}")
         
