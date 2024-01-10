@@ -30,4 +30,4 @@ class SystemManager(metaclass=Singleton):
         return cls.__get(name) != None
     
     def empty(cls):
-        return not _systems
+        return not cls._systems
