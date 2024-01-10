@@ -28,3 +28,6 @@ class SystemManager(metaclass=Singleton):
     
     def exists(cls, name):
         return cls.__get(name) != None
+    
+    def empty(cls):
+        return not _systems
