@@ -110,6 +110,7 @@ class QSystemEditor(QMainWindow):
             return
         
         ConnectionManager().clear()
+        SystemManager().clear()
         ConnectionDataWrapper().load_from_csv(fileName)
         
         links = ConnectionManager().get_keys()
