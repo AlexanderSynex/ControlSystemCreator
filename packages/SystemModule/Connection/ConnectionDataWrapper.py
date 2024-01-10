@@ -11,8 +11,13 @@ class ConnectionDataWrapper(metaclass=Singleton):
         print(f"ConnectionDWrapper. Loading links from <{path}>")
         names = pd.read_csv(path).columns.values
         
+        new_names = []
         for name in names:
+            if not ConnectionManager().exists(name):
+                new_names.append(name)
             ConnectionManager().get_instance(name)
+            
+        return new_names
     
     
     def to_dict(cls, link_name : str) -> dict:

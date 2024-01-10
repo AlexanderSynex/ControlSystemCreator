@@ -109,18 +109,13 @@ class QSystemEditor(QMainWindow):
             self.__show_error_status("No parameters loaded")
             return
         
-        ConnectionManager().clear()
-        SystemManager().clear()
-        ConnectionDataWrapper().load_from_csv(fileName)
+        loaded_names = ConnectionDataWrapper().load_from_csv(fileName)
         
-        links = ConnectionManager().get_keys()
-        
-        if not links:
+        if not loaded_names:
             self.__show_error_status("No parameters loaded")
-        self.__show_success_status(f"Loaded {len(links)} parameters")
+        self.__show_success_status(f"Loaded {len(loaded_names)} parameters")
         
-        self.__parameters_edit.clear_parameters_list()
-        self.__parameters_edit.update_parameters_list(links)
+        self.__parameters_edit.update_parameters_list(loaded_names)
         
     
     def __clear_status(self):
