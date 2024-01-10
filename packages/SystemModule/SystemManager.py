@@ -12,9 +12,9 @@ class SystemManager(metaclass=Singleton):
             cls._systems[name] = system
     
     def __get(cls, name):
-        if name in cls._systems:
-            return cls._systems[name]
-        return None
+        if name not in cls._systems:
+            return None
+        return cls._systems[name]
     
     def get_instance(cls, name : str = "", Inputs = [], Outputs = []):
         system = cls.__get(name)
