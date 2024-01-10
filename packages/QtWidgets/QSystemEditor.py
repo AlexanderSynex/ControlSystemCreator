@@ -82,7 +82,7 @@ class QSystemEditor(QMainWindow):
         
         self.__parameters_edit.update_parameters_list(links)
         
-        self.__system_selector.add_system(sys.get_name())
+        self.__system_selector.add_system(sys.name)
 
 
     def __load__input_links_action(self):

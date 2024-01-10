@@ -4,16 +4,19 @@ class ISystem:
         self.__Inputs = Inputs
         self.__Outputs = Outputs
     
-    def get_name(self):
+    @property
+    def name(self):
         return self.__name
     
-    def get_input_keys(self):
+    @property
+    def input_keys(self):
         links = []
         for link in self.__Inputs:
             links.append(link.name)
         return links
     
-    def get_output_keys(self):
+    @property
+    def output_keys(self):
         links = []
         for link in self.__Outputs:
             links.append(link.name)

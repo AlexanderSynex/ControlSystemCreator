@@ -6,7 +6,7 @@ class SystemManager(metaclass=Singleton):
     _systems = {}
 
     def __add(cls, system):
-        name = system.get_name()
+        name = system.name
         if name not in cls._systems:
             print(f"SystemManager. System created: {name}")
             cls._systems[name] = system

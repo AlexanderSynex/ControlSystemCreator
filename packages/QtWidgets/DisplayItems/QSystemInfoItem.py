@@ -35,6 +35,6 @@ class QSystemInfo(QWidget):
         
         system = SystemManager().get_instance(self.system_name)
         
-        self.__name_label.setText(f"<b>Name</b>: {system.get_name()}")
-        self.__input_label.setText(f"<b>Inputs</b>: {len(system.get_input_keys())}")
-        self.__output_label.setText(f"<b>Outputs</b>: {len(system.get_output_keys())}")
+        self.__name_label.setText(f"<b>Name</b>: {system.name}")
+        self.__input_label.setText(f"<b>Inputs</b>: {len(system.input_keys)}")
+        self.__output_label.setText(f"<b>Outputs</b>: {len(system.output_keys)}")
