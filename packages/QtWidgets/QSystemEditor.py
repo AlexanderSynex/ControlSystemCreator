@@ -78,7 +78,7 @@ class QSystemEditor(QMainWindow):
         
         links = []
         for link in outputs:
-            links.append(link.get_name())
+            links.append(link.name)
         
         self.__parameters_edit.update_parameters_list(links)
         

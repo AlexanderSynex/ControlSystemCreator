@@ -3,20 +3,20 @@ class ISystem:
         self.__name : str = name
         self.__Inputs = Inputs
         self.__Outputs = Outputs
-        
+    
     def get_name(self):
         return self.__name
     
     def get_input_keys(self):
         links = []
         for link in self.__Inputs:
-            links.append(link.get_name())
+            links.append(link.name)
         return links
     
     def get_output_keys(self):
         links = []
         for link in self.__Outputs:
-            links.append(link.get_name())
+            links.append(link.name)
         return links
     
     def add_inputs(self, Inputs):

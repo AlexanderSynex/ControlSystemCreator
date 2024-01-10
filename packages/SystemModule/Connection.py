@@ -1,13 +1,16 @@
 class Connection:
     def __init__(self, name : str, value :float = 0):
-        self.name : str = name
-        self.value : float = value
+        self.__name = name
+        self.__value = value
     
-    def get_value(self):
-        return self.value
+    @property
+    def value(self):
+        return self.__value
+
+    @value.setter
+    def value(self, value : float):
+        self.__value = value
     
-    def get_name(self):
-        return self.name
-    
-    def set_value(self, value : float):
-        self.value = value
+    @property
+    def name(self):
+        return self.__name

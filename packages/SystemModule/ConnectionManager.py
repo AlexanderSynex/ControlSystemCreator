@@ -8,7 +8,7 @@ class ConnectionManager(metaclass=Singleton):
     __internal_link_number = 1
     
     def __add(cls, link):
-        name = link.get_name()
+        name = link.name
         if name not in cls.__links:
             print(f"ConnectionManager. Link added: {name}")
             cls.__links[name] = link
@@ -59,7 +59,7 @@ class ConnectionManager(metaclass=Singleton):
     def set_value(cls, name : str, value : float):
         link = cls.__get(name)
         if link is not None:
-            link.set_value(value)
+            link.value = value
     
     
     def exists(cls, name):
