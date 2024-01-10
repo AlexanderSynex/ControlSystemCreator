@@ -23,3 +23,10 @@ class SystemDataWrapper(metaclass=Singleton):
         
         
         return dict(name=system_name, inputs=inputs, outputs=outputs)
+    
+    
+    def to_json(cls, system_name : str) -> str:
+        if not SystemManager().exists(system_name):
+            return None
+        
+        return json.dumps(cls.to_dict(system_name=system_name), indent=2)
