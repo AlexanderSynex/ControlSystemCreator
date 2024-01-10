@@ -1,4 +1,5 @@
-from .SystemModule.System import SystemManager
+from .SystemModule.System import (SystemManager,
+                                  SystemDataWrapper)
 from .SystemModule.Connection import (ConnectionManager, 
-                                    ConnectionDataWrapper)
+                                      ConnectionDataWrapper)
 from .QtWidgets import QSystemEditor
