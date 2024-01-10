@@ -5,7 +5,7 @@ from PyQt6.QtGui import *
 from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
-from ..SystemModule import ConnectionManager
+from ..SystemModule import ConnectionManager, ConnectionDataWrapper
 from ..SystemModule import SystemManager
 
 from .DisplayItems import QSystemInfo
@@ -57,6 +57,7 @@ class QSystemEditor(QMainWindow):
         save_system_action.setShortcut(QKeySequence("Ctrl+S"))
         __file_menu.addAction(save_system_action)
         
+        load_links_action.triggered.connect(self.__load__input_links_action)
         save_system_action.triggered.connect(self.__save_systems_action)
     
         
@@ -107,7 +108,7 @@ class QSystemEditor(QMainWindow):
             return
         
         ConnectionManager().clear()
-        ConnectionManager().load_from_csv(fileName)
+        ConnectionDataWrapper().load_from_csv(fileName)
         
         links = ConnectionManager().get_keys()
         
