@@ -1,2 +1,5 @@
-from .System import System, SystemManager
-from .Connection import ConnectionManager
+from .System import (System, 
+                     SystemManager, 
+                     SystemDataWrapper)
+from .Connection import (ConnectionManager, 
+                         ConnectionDataWrapper)

@@ -31,3 +31,7 @@ class SystemManager(metaclass=Singleton):
     
     def empty(cls):
         return not cls._systems
+    
+    # Return all keys
+    def get_keys(cls):
+        return list(cls._systems.keys())
