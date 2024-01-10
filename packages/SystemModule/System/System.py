@@ -1,4 +1,4 @@
-class ISystem:
+class System:
     def __init__(self, name : str = "", Inputs = [], Outputs = []):
         self.__name : str = name
         self.__Inputs = Inputs

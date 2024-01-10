@@ -1,4 +1,4 @@
-from .ISystem import ISystem
+from .System import System
 from ..Singleton import Singleton
 
 # Manager purposed to store names of created systems and grant their uniqueness
@@ -19,7 +19,7 @@ class SystemManager(metaclass=Singleton):
     def get_instance(cls, name : str = "", Inputs = [], Outputs = []):
         system = cls.__get(name)
         if system is None:
-            system = ISystem(name, Inputs=Inputs, Outputs=Outputs)
+            system = System(name, Inputs=Inputs, Outputs=Outputs)
             cls.__add(system)
         return system
     

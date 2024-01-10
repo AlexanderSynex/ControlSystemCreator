@@ -1,2 +1,2 @@
-from .ISystem import ISystem
+from .System import System
 from .SystemManager import SystemManager
