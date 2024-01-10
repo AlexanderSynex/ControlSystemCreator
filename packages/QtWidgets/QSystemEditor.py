@@ -21,13 +21,6 @@ class QSystemEditor(QMainWindow):
     
     
     def __init_UI(self):
-        __file_menu = self.menuBar().addMenu("File")
-        __load_action = QAction("Load inputs", self)
-        __load_action.setShortcut(QKeySequence("Ctrl+O"))
-        __file_menu.addAction(__load_action)
-        
-        __load_action.triggered.connect(self.__load__input_links_action)
-        
         self.__window = QWidget()
         self.__layout = QHBoxLayout()
         
@@ -50,6 +43,22 @@ class QSystemEditor(QMainWindow):
         self.statusBar().addWidget(self.__status_bar_label)
         self.__clear_status()
         
+        self.__init_menu_bar()
+    
+    
+    def __init_menu_bar(self):
+        __file_menu = self.menuBar().addMenu("File")
+        
+        load_links_action = QAction("Load inputs", self)
+        load_links_action.setShortcut(QKeySequence("Ctrl+O"))
+        __file_menu.addAction(load_links_action)
+        
+        save_system_action = QAction("Save systems", self)
+        save_system_action.setShortcut(QKeySequence("Ctrl+S"))
+        __file_menu.addAction(save_system_action)
+        
+        save_system_action.triggered.connect(self.__save_systems_action)
+    
         
     def __create_system(self, params):
         name = params['name']
@@ -120,3 +129,7 @@ class QSystemEditor(QMainWindow):
     
     def __show_error_status(self, message):
         self.__status_bar_label.setText(f"<b>ERROR</b>: {message}")
+        
+    
+    def __save_systems_action(self):
+        pass
