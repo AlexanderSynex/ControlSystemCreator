@@ -132,4 +132,20 @@ class QSystemEditor(QMainWindow):
         
     
     def __save_systems_action(self):
-        pass
+        if SystemManager().empty():
+            self.__show_error_status("No systems to save")
+            return
+        
+        names = SystemManager().get_keys()
+        
+        json = QJsonObject()
+        
+        json["hello"] = 123123
+        
+        saveFile = QFile("hello.json")
+        saveFile.write(json)
+        
+        for name in names:
+            system = SystemManager().get_instance(name)
+            
+        
