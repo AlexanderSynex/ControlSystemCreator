@@ -30,3 +30,21 @@ class SystemDataWrapper(metaclass=Singleton):
             return None
         
         return json.dumps(cls.to_dict(system_name=system_name), indent=2)
+    
+    
+    def all_to_dict(cls):
+        if SystemManager().empty():
+            return dict(systems=[])
+        
+        systems=[]
+        for name in SystemManager().get_keys():
+            systems.append(cls.to_dict(name))
+        
+        return dict(systems=systems)
+    
+    
+    def all_to_json(cls) -> str:
+        if SystemManager().empty():
+            return json.dumps(systems=[])
+        
+        return json.dumps(cls.all_to_dict(), indent=2)
