@@ -1,5 +1,5 @@
 from .ISystem import ISystem
-from .Singleton import Singleton
+from ..Singleton import Singleton
 
 # Manager purposed to store names of created systems and grant their uniqueness
 class SystemManager(metaclass=Singleton):

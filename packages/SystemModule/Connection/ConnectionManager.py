@@ -1,4 +1,4 @@
-from .Singleton import Singleton
+from ..Singleton import Singleton
 from .Connection import Connection
 
 import pandas as pd

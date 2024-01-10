@@ -1,3 +1,2 @@
-from .ISystem import ISystem
-from .SystemManager import SystemManager
-from .ConnectionManager import ConnectionManager
+from .System import ISystem, SystemManager
+from .Connection import ConnectionManager
