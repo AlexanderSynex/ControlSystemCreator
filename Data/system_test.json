@@ -1,0 +1,61 @@
+{
+  "systems": [
+    {
+      "name": "System1",
+      "inputs": [
+        {
+          "name": "height",
+          "value": 0
+        },
+        {
+          "name": "width",
+          "value": 0
+        },
+        {
+          "name": "length",
+          "value": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_link1",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "System2",
+      "inputs": [
+        {
+          "name": "length",
+          "value": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_link2",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "name": "System3",
+      "inputs": [
+        {
+          "name": "_link1",
+          "value": 0
+        },
+        {
+          "name": "_link2",
+          "value": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "_link3",
+          "value": 0
+        }
+      ]
+    }
+  ]
+}
