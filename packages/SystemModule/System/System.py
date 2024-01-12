@@ -29,11 +29,11 @@ class System:
         self.__Outputs.append(Outputs)
         
     def print(self):
-        print(f"system: {self.get_name()}")
+        print(f"system: {self.name}")
         print(f"Inputs:")
         print(self.__Inputs)
         for i, link in enumerate(self.__Inputs):
-            print(f"{i + 1}:\t{link.get_name()}")
+            print(f"{i + 1}:\t{link.name}")
         print(f"Outputs:")
         for i, link in enumerate(self.__Outputs):
-            print(f"{i + 1}:\t{link.get_name()}")
+            print(f"{i + 1}:\t{link.name}")

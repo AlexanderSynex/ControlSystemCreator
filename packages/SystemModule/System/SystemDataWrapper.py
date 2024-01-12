@@ -2,7 +2,7 @@ from ..Singleton import Singleton
 from .System import System
 from .SystemManager import SystemManager
 
-from ..Connection import ConnectionDataWrapper
+from ..Connection import ConnectionManager, ConnectionDataWrapper
 
 import pandas as pd
 
@@ -25,11 +25,36 @@ class SystemDataWrapper(metaclass=Singleton):
         return dict(name=system_name, inputs=inputs, outputs=outputs)
     
     
+    def from_dict(cls, system_dict : dict):
+        if not all(key in system_dict for key in ('name', 
+                                                  'inputs', 
+                                                  'outputs')):
+            return
+        
+        input_keys = ConnectionDataWrapper().from_dicts(system_dict['inputs'])
+        output_keys = ConnectionDataWrapper().from_dicts(system_dict['outputs'])
+        
+        SystemManager().get_instance(name=system_dict['name'],
+                                     Inputs=ConnectionManager().get_instances(input_keys),
+                                     Outputs=ConnectionManager().get_instances(output_keys))
+    
+    
     def to_json(cls, system_name : str) -> str:
         if not SystemManager().exists(system_name):
             return None
         
         return json.dumps(cls.to_dict(system_name=system_name), indent=2)
+    
+    
+    def from_json(cls, path : str):
+        with open(path) as file:
+            raw_data = json.load(file)
+            
+            if 'systems' not in raw_data:
+                return
+            
+            for system in raw_data['systems']:
+                cls.from_dict(system)
     
     
     def all_to_dict(cls):
@@ -48,3 +73,6 @@ class SystemDataWrapper(metaclass=Singleton):
             return json.dumps(systems=[])
         
         return json.dumps(cls.all_to_dict(), indent=2)
+    
+    
+    

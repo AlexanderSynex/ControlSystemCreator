@@ -55,13 +55,20 @@ class QSystemEditor(QMainWindow):
         load_links_action.setShortcut(QKeySequence("Ctrl+O"))
         __file_menu.addAction(load_links_action)
         
+        
+        load_system_action = QAction("Load systems", self)
+        load_system_action.setShortcut(QKeySequence("Ctrl+Shift+O"))
+        __file_menu.addAction(load_system_action)
+        
+        
         save_system_action = QAction("Save systems", self)
         save_system_action.setShortcut(QKeySequence("Ctrl+S"))
         __file_menu.addAction(save_system_action)
         
         load_links_action.triggered.connect(self.__load__input_links_action)
+        load_system_action.triggered.connect(self.__load_systems_action)
         save_system_action.triggered.connect(self.__save_systems_action)
-    
+        
         
     def __create_system(self, params):
         name = params['name']
@@ -152,4 +159,24 @@ class QSystemEditor(QMainWindow):
         file.close()
         
         self.__show_success_status(f"Systems saved in {fileName}")
+        
+        
+    def __load_systems_action(self):
+        # fileName, _ = QFileDialog().getOpenFileName(self,
+        #                                             caption="Load systems info",
+        #                                             directory=QDir().homePath(), 
+        #                                             filter="JavaScript Object Notation Files (*.json)")
+        
+        fileName = "./Data/system_test.json"
+        
+        if not fileName:
+            self.__show_error_status("No systems loaded")
+            return
+        
+        SystemManager().clear()
+        SystemDataWrapper().from_json(path=fileName)
+        
+        self.__system_selector.clear()
+        self.__system_selector.add_systems(SystemManager().get_keys())
+        self.__show_success_status(f"Loaded {len(SystemManager().get_keys())} systems")
         

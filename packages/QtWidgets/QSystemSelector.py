@@ -20,3 +20,8 @@ class QSystemSelector(QListWidget):
         item = QListWidgetItem(parent=self)
         item.setSizeHint(widget.minimumSizeHint())
         self.setItemWidget(item, widget)
+        
+    
+    def add_systems(self, system_names):
+        for name in system_names:
+            self.add_system(system_name=name)

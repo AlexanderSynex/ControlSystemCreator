@@ -30,6 +30,23 @@ class ConnectionDataWrapper(metaclass=Singleton):
                     value=link.value)
     
     
+    def from_dict(cls, link_dict : dict):
+        if not all(key in link_dict for key in ('name', 'value')):
+            return
+        
+        ConnectionManager().get_instance(name=link_dict['name'], 
+                                         value=link_dict['value'])
+        
+        return link_dict['name']
+    
+    
+    def from_dicts(cls, link_dict_list : list):
+        links = []
+        for link_dict in link_dict_list:
+            links.append(cls.from_dict(link_dict=link_dict))
+        return links
+    
+    
     def to_json(cls, link_name : str) -> str:
         if not ConnectionManager().exists(link_name):
             return None
