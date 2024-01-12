@@ -1,6 +1,8 @@
 from .System import System
 from ..Singleton import Singleton
 
+from ..Connection import ConnectionManager
+
 # Manager purposed to store names of created systems and grant their uniqueness
 class SystemManager(metaclass=Singleton):
     _systems = {}
@@ -24,6 +26,7 @@ class SystemManager(metaclass=Singleton):
         return system
     
     def clear(cls):
+        ConnectionManager().clear()
         cls.names = {}
     
     def exists(cls, name):

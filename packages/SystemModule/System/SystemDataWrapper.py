@@ -2,7 +2,7 @@ from ..Singleton import Singleton
 from .System import System
 from .SystemManager import SystemManager
 
-from ..Connection import ConnectionDataWrapper
+from ..Connection import ConnectionManager, ConnectionDataWrapper
 
 import pandas as pd
 
@@ -31,9 +31,12 @@ class SystemDataWrapper(metaclass=Singleton):
                                                   'outputs')):
             return
         
+        input_keys = ConnectionDataWrapper().from_dicts(system_dict['inputs'])
+        output_keys = ConnectionDataWrapper().from_dicts(system_dict['outputs'])
+        
         SystemManager().get_instance(name=system_dict['name'],
-                                     Inputs=system_dict['inputs'],
-                                     Outputs=system_dict['outputs'])
+                                     Inputs=ConnectionManager().get_instances(input_keys),
+                                     Outputs=ConnectionManager().get_instances(output_keys))
     
     
     def to_json(cls, system_name : str) -> str:

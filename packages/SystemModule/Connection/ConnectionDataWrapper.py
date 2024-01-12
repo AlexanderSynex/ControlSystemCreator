@@ -36,6 +36,15 @@ class ConnectionDataWrapper(metaclass=Singleton):
         
         ConnectionManager().get_instance(name=link_dict['name'], 
                                          value=link_dict['value'])
+        
+        return link_dict['name']
+    
+    
+    def from_dicts(cls, link_dict_list : list):
+        links = []
+        for link_dict in link_dict_list:
+            links.append(cls.from_dict(link_dict=link_dict))
+        return links
     
     
     def to_json(cls, link_name : str) -> str:
