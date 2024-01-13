@@ -61,7 +61,7 @@ class QSystemViewer(QMainWindow):
         #                                             directory=QDir().homePath(), 
         #                                             filter="JavaScript Object Notation Files (*.json)")
         
-        fileName = "./Data/system_test.json"
+        fileName = "./Data/system_test_no_system_weights.json"
         
         if not fileName:
             self.__show_error_status("No systems loaded")
