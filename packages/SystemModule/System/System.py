@@ -63,4 +63,4 @@ class System(object):
             print(f"{i + 1}:\t{link} weight={ConnectionManager().get_instance(link).weight}")
         print(f"Outputs:")
         for i, link in enumerate(self.__Outputs):
-            print(f"{i + 1}:\t{link} weight={ConnectionManager().get_instance(link).weight}")gi
+            print(f"{i + 1}:\t{link} weight={ConnectionManager().get_instance(link).weight}")
