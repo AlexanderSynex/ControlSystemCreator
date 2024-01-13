@@ -9,3 +9,10 @@ class QSystemDrawer(QGraphicsView):
         
         self.__scene = QGraphicsScene()
         self.setScene(self.__scene)
+        
+    
+    def add(self, element):
+        self.__scene.addItem(element)
+        
+    
+    
