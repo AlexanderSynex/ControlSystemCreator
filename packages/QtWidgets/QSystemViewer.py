@@ -9,6 +9,8 @@ from ..SystemModule import (ConnectionManager,
 from ..SystemModule import (SystemManager, 
                             SystemDataWrapper)
 
+from .QSystemDrawer import QSystemDrawer
+
 
 class QSystemViewer(QMainWindow):
     def __init__(self, parent = None):
@@ -30,8 +32,7 @@ class QSystemViewer(QMainWindow):
         
         self.__graph_container = QGroupBox("System image")
         __graph_layout = QHBoxLayout()
-        self.__scene = QGraphicsScene()
-        self.__graph_view = QGraphicsView(self.__scene)
+        self.__graph_view = QSystemDrawer()
         __graph_layout.addWidget(self.__graph_view)
         self.__graph_container.setLayout(__graph_layout)
         
