@@ -142,6 +142,10 @@ class QSystemEditor(QMainWindow):
                                                     directory=QDir().homePath(), 
                                                     filter="JavaScript Object Notation Files (*.json)")
         
+        if not fileName:
+            self.__show_error_status("System saving was canceled")
+            return
+        
         if '.json' not in fileName:
             fileName += '.json'
         
