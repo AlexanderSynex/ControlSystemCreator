@@ -61,7 +61,7 @@ class System(object):
         print(f"weight={self.weight}")
         print(f"Inputs:")
         for i, link in enumerate(self.__Inputs):
-            print(f"{i + 1}:\t{link.name}")
+            print(f"{i + 1}:\t{link}")
         print(f"Outputs:")
         for i, link in enumerate(self.__Outputs):
-            print(f"{i + 1}:\t{link.name}")
+            print(f"{i + 1}:\t{link}")
