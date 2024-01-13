@@ -2,4 +2,9 @@ from .QSystemEditor import QSystemEditor
 from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
-from .DisplayItems import QLinkItem, QSystemInfo
+from .QSystemViewer import QSystemViewer
+from .QConnectionList import QConnectionList
+
+from .DisplayItems import (QLinkItem, 
+                           QSystemInfo,
+                           QConnectionItemWidget)
