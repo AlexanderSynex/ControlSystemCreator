@@ -177,5 +177,8 @@ class QSystemEditor(QMainWindow):
         
         self.__system_selector.clear()
         self.__system_selector.add_systems(SystemManager().get_keys())
+        
+        self.__parameters_edit.clear_parameters_list()
+        self.__parameters_edit.update_parameters_list(ConnectionManager().get_keys())
         self.__show_success_status(f"Loaded {len(SystemManager().get_keys())} systems")
         
