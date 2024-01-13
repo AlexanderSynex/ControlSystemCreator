@@ -15,7 +15,6 @@ class QConnectionItemWidget(QWidget):
         
         
     def __init_UI(self):
-
         self.__layout = QHBoxLayout(self)
         
         self.__name_label = QLabel()        
@@ -25,7 +24,7 @@ class QConnectionItemWidget(QWidget):
         
         self.__layout.addWidget(self.__name_label, 2)
         self.__layout.addWidget(self.__value_edit, 4)
-
+        
         self.update_system_info()
     
     
@@ -37,7 +36,6 @@ class QConnectionItemWidget(QWidget):
         link = ConnectionManager().get_instance(self.signal_name)
         
         self.__name_label.setText(f"{link.name}")
-
         self.__value_edit.setValue(link.value)
         
         
