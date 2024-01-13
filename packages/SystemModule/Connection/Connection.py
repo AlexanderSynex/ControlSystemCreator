@@ -2,6 +2,8 @@ class Connection:
     def __init__(self, name : str, value :float = 0):
         self.__name = name
         self.__value = value
+        
+        self.__weight = 0
     
     @property
     def value(self):
@@ -14,3 +16,11 @@ class Connection:
     @property
     def name(self):
         return self.__name
+    
+    @value.setter
+    def weight(self, weight):
+        self.__weight = weight
+    
+    @property
+    def weight(self):
+        return self.__weight
