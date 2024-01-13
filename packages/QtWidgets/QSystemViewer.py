@@ -11,6 +11,8 @@ from ..SystemModule import (SystemManager,
 
 from .QSystemDrawer import QSystemDrawer
 
+from .DrawItems import QSystemDrawElement
+
 
 class QSystemViewer(QMainWindow):
     def __init__(self, parent = None):
@@ -36,6 +38,7 @@ class QSystemViewer(QMainWindow):
         __graph_layout.addWidget(self.__graph_view)
         self.__graph_container.setLayout(__graph_layout)
         
+        self.__graph_view.add(QSystemDrawElement())
         
         self.__layout.addWidget(self.__signals_container, 0)
         self.__layout.addWidget(self.__graph_container, 1)
