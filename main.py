@@ -1,11 +1,11 @@
 from PyQt6.QtWidgets import QApplication, QWidget
 
-from packages import QSystemEditor
+from packages import QSystemEditor, QSystemViewer
 
 def main():
     app = QApplication([])
     
-    window = QSystemEditor()
+    window = QSystemViewer()
     window.show()
     
     return app.exec()
