@@ -1,6 +1,8 @@
 from ..Singleton import Singleton
 from .Connection import Connection
 
+import re
+
 class ConnectionManager(metaclass=Singleton):
     __links = {}
     __internal_link_number = 1
@@ -22,6 +24,10 @@ class ConnectionManager(metaclass=Singleton):
         print(f"ConnectionManager. Links deleted")
         cls.__links = {}
         cls.__internal_link_number = 1
+    
+    
+    def __set_internal_number(self, n):
+        __internal_link_number = max(__internal_link_number, n)
     
     
     def get_instance(cls, name : str, value : float = 0):
@@ -53,6 +59,15 @@ class ConnectionManager(metaclass=Singleton):
             cls.__internal_link_number += 1
         
         return links
+    
+    
+    def rebase_internal_coonections(cls):
+        for key in cls.get_keys():
+            if '_link' in key:
+                possible_values = [int(val) for val in re.findall('\d+', key)]
+                n = max(possible_values)
+                cls.__internal_link_number = n + 1
+    
     
     def set_value(cls, name : str, value : float):
         link = cls.__get(name)
