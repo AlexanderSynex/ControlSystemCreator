@@ -61,7 +61,7 @@ class ConnectionManager(metaclass=Singleton):
         return links
     
     
-    def rebase_internal_coonections(cls):
+    def rebase_internal_connections(cls):
         for key in cls.get_keys():
             if '_link' in key:
                 possible_values = [int(val) for val in re.findall('\d+', key)]
