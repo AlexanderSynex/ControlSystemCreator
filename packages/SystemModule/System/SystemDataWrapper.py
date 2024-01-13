@@ -21,11 +21,13 @@ class SystemDataWrapper(metaclass=Singleton):
         for name in SystemManager().get_instance(system_name).output_keys:
             outputs.append(ConnectionDataWrapper().to_dict(link_name=name))
         
-        return dict(name=system_name, inputs=inputs, outputs=outputs)
+        weight = SystemManager().get_instance(system_name).weight
+        
+        return dict(name=system_name, weight=weight, inputs=inputs, outputs=outputs)
     
     
     def from_dict(cls, system_dict : dict):
-        if not all(key in system_dict for key in ('name', 
+        if not all(key in system_dict for key in ('name',
                                                   'inputs', 
                                                   'outputs')):
             return
@@ -34,8 +36,8 @@ class SystemDataWrapper(metaclass=Singleton):
         output_keys = ConnectionDataWrapper().from_dicts(system_dict['outputs'])
         
         SystemManager().get_instance(name=system_dict['name'],
-                                     Inputs=ConnectionManager().get_instances(input_keys),
-                                     Outputs=ConnectionManager().get_instances(output_keys))
+                                     Inputs=input_keys,
+                                     Outputs=output_keys)
     
     
     def to_json(cls, system_name : str) -> str:
