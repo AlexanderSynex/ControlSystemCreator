@@ -81,12 +81,12 @@ class QSystemEditor(QMainWindow):
             self.__show_error_status(f"System {name} already exists")
             return
         
-        inputs = ConnectionManager().get_instances(names=input_names)
-        outputs = ConnectionManager().create_internal_connections(output_number)
+        ConnectionManager().get_instances(names=input_names)
+        output_names = ConnectionManager().create_internal_connections(output_number)
         
         sys = SystemManager().get_instance(name=name,
-                                           Inputs=inputs,
-                                           Outputs=outputs)
+                                           Inputs=input_names,
+                                           Outputs=output_names)
         
         if sys is None:
             self.__show_error_status(f"System {name} can not be created")
@@ -95,12 +95,7 @@ class QSystemEditor(QMainWindow):
         self.__show_success_status(f"System {name} created")
         self.system_created.emit(sys)
         
-        links = []
-        for link in outputs:
-            links.append(link.name)
-        
-        self.__parameters_edit.update_parameters_list(links)
-        
+        self.__parameters_edit.update_parameters_list(output_names)
         self.__system_selector.add_system(sys.name)
 
 
