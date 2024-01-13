@@ -19,12 +19,10 @@ class Connection(object):
 
     @property
     def weight(self):
-        print("Connection. Weight getter")
         return self.__weight
     
     @weight.setter
     def weight(self, value):
-        print("Connection. Weight setter")
         self.__weight = max(self.__weight, value)
     
 

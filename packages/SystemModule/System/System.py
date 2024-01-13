@@ -29,7 +29,6 @@ class System(object):
     
     @weight.setter
     def weight(self, weight):
-        print(f"HEEERE {weight}, {self.__weight}")
         self.__weight = max(self.__weight, weight)
     
     
