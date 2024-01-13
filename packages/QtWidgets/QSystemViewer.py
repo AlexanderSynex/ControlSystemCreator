@@ -28,9 +28,9 @@ class QSystemViewer(QMainWindow):
         self.__signals_container.setLayout(__signals_layout)
         
         
-        self.__graph_container = QGroupBox("Signals list")
+        self.__graph_container = QGroupBox("System image")
         __graph_layout = QHBoxLayout()
-        self.__graph_frame = QListWidget()
+        self.__graph_frame = QFrame()
         __graph_layout.addWidget(self.__graph_frame)
         self.__graph_container.setLayout(__graph_layout)
         
