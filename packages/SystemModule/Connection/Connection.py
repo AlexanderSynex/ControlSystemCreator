@@ -1,4 +1,4 @@
-class Connection:
+class Connection(object):
     def __init__(self, name : str, value :float = 0):
         self.__name = name
         self.__value = value
@@ -16,11 +16,15 @@ class Connection:
     @property
     def name(self):
         return self.__name
-    
-    @value.setter
-    def weight(self, weight):
-        self.__weight = weight
-    
+
     @property
     def weight(self):
+        print("Connection. Weight setter")
         return self.__weight
+    
+    @weight.setter
+    def weight(self, value):
+        print("Connection. Weight getter")
+        self.__weight = max(self.__weight, value)
+    
+
