@@ -6,6 +6,8 @@ from .QSystemViewer import QSystemViewer
 from .QConnectionList import QConnectionList
 from .QSystemDrawer import QSystemDrawer
 
+from .DrawItems import QSystemDrawElement
+
 from .DisplayItems import (QLinkItem, 
                            QSystemInfo,
                            QConnectionItemWidget)
