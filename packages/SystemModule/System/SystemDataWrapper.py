@@ -37,7 +37,7 @@ class SystemDataWrapper(metaclass=Singleton):
                                      Inputs=input_keys,
                                      Outputs=output_keys)
         
-        ConnectionManager().rebase_internal_coonections()
+        ConnectionManager().rebase_internal_connections()
     
     
     def to_json(cls, system_name : str) -> str:
