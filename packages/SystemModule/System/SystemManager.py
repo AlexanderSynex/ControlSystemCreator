@@ -27,7 +27,7 @@ class SystemManager(metaclass=Singleton):
     
     def clear(cls):
         ConnectionManager().clear()
-        cls.names = {}
+        cls._systems = {}
     
     def exists(cls, name):
         return cls.__get(name) != None
