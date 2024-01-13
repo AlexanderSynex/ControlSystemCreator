@@ -25,6 +25,7 @@ class QConnectionItemWidget(QWidget):
         self.__layout.addWidget(self.__name_label, 2)
         self.__layout.addWidget(self.__value_edit, 4)
 
+        
         self.update_system_info()
     
     
