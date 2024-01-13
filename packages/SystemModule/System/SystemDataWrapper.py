@@ -26,7 +26,6 @@ class SystemDataWrapper(metaclass=Singleton):
     
     def from_dict(cls, system_dict : dict):
         if not all(key in system_dict for key in ('name',
-                                                  'weight',
                                                   'inputs', 
                                                   'outputs')):
             return
