@@ -15,15 +15,13 @@ class QConnectionItemWidget(QWidget):
         
         
     def __init_UI(self):
-        self.__layout = QHBoxLayout(self)
+        self.__layout = QVBoxLayout(self)
         
-        self.__name_label = QLabel()        
+        self.__name_label = QLabel()
         self.__value_edit = QDoubleSpinBox()
         
-        self.__value_edit.setReadOnly(True)
-        
-        self.__layout.addWidget(self.__name_label, 2)
-        self.__layout.addWidget(self.__value_edit, 4)
+        self.__layout.addWidget(self.__name_label)
+        self.__layout.addWidget(self.__value_edit)
         
         self.update_system_info()
     
@@ -35,7 +33,7 @@ class QConnectionItemWidget(QWidget):
         
         link = ConnectionManager().get_instance(self.signal_name)
         
-        self.__name_label.setText(f"{link.name}")
+        self.__name_label.setText(f"<b>Name</b>: {link.name}")
         self.__value_edit.setValue(link.value)
         
         
