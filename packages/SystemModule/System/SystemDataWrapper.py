@@ -21,9 +21,7 @@ class SystemDataWrapper(metaclass=Singleton):
         for name in SystemManager().get_instance(system_name).output_keys:
             outputs.append(ConnectionDataWrapper().to_dict(link_name=name))
         
-        weight = SystemManager().get_instance(system_name).weight
-        
-        return dict(name=system_name, weight=weight, inputs=inputs, outputs=outputs)
+        return dict(name=system_name, inputs=inputs, outputs=outputs)
     
     
     def from_dict(cls, system_dict : dict):
