@@ -49,7 +49,7 @@ class ConnectionManager(metaclass=Singleton):
         links = []
         for i in range(link_number):
             name = f"_link{cls.__internal_link_number}"
-            links.append(cls.get_instance(name))
+            links.append(name)
             cls.__internal_link_number += 1
         
         return links

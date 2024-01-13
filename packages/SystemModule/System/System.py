@@ -17,18 +17,11 @@ class System(object):
     
     @property
     def input_keys(self):
-        links = []
-        for link in self.__Inputs:
-            links.append(link.name)
-        return links
+        return self.__Inputs
     
     @property
     def output_keys(self):
-        links = []
-        for link in self.__Outputs:
-            links.append(link.name)
-        return links
-    
+        return self.__Outputs
     
     @property
     def weight(self):

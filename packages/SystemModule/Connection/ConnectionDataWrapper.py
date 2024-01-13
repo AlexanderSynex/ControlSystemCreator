@@ -27,15 +27,18 @@ class ConnectionDataWrapper(metaclass=Singleton):
         link = ConnectionManager().get_instance(name=link_name)
         
         return dict(name=link_name, 
-                    value=link.value)
+                    value=link.value,
+                    weight=link.weight)
     
     
     def from_dict(cls, link_dict : dict):
-        if not all(key in link_dict for key in ('name', 'value')):
+        if not all(key in link_dict for key in ('name', 'value', 'weight')):
             return
         
-        ConnectionManager().get_instance(name=link_dict['name'], 
-                                         value=link_dict['value'])
+        link = ConnectionManager().get_instance(name=link_dict['name'], 
+                                                value=link_dict['value'])
+        
+        link.weight = link_dict['weight']
         
         return link_dict['name']
     

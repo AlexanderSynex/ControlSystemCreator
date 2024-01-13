@@ -21,7 +21,6 @@ class SystemDataWrapper(metaclass=Singleton):
         for name in SystemManager().get_instance(system_name).output_keys:
             outputs.append(ConnectionDataWrapper().to_dict(link_name=name))
         
-        
         return dict(name=system_name, inputs=inputs, outputs=outputs)
     
     
