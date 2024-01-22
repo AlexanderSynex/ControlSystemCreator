@@ -1,13 +1,2 @@
-from .QSystemEditor import QSystemEditor
-from .QSystemSelector import QSystemSelector
-from .QParametersEditor import QParametersEditor
-
-from .QSystemViewer import QSystemViewer
-from .QConnectionList import QConnectionList
-from .QSystemDrawer import QSystemDrawer
-
-from .DrawItems import QSystemDrawElement
-
-from .DisplayItems import (QLinkItem, 
-                           QSystemInfo,
-                           QConnectionItemWidget)
+from .SystemEditor import QSystemEditor
+from .SystemViewer import QSystemViewer

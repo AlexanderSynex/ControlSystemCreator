@@ -5,12 +5,15 @@ from PyQt6.QtGui import *
 from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
-from ..SystemModule import (ConnectionManager, 
-                            ConnectionDataWrapper)
-from ..SystemModule import (SystemManager, 
-                            SystemDataWrapper)
+from .Items import QSystemInfo
 
-from .DisplayItems import QSystemInfo
+from packages.SystemModule.Connection import (ConnectionManager, 
+                                              ConnectionDataWrapper)
+
+from packages.SystemModule.System import (SystemManager, 
+                                          SystemDataWrapper)
+
+
 
 class QSystemEditor(QMainWindow):
     

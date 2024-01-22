@@ -2,9 +2,9 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
-from .DisplayItems import QLinkItem
+from .Items import *
 
-from ..SystemModule import SystemManager
+import packages.SystemModule.System.SystemManager
 
 class QParametersEditor(QGroupBox):
     

@@ -3,15 +3,15 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
 from .QConnectionList import QConnectionList
-
-from ..SystemModule import (ConnectionManager, 
-                            ConnectionDataWrapper)
-from ..SystemModule import (SystemManager, 
-                            SystemDataWrapper)
-
 from .QSystemDrawer import QSystemDrawer
 
-from .DrawItems import QSystemDrawElement
+from .DrawingElements import QSystemDrawElement
+
+from packages.SystemModule.Connection import (ConnectionManager, 
+                                              ConnectionDataWrapper)
+
+from packages.SystemModule.System import (SystemManager,
+                                          SystemDataWrapper)
 
 
 class QSystemViewer(QMainWindow):

@@ -2,9 +2,9 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
-from ..SystemModule import SystemManager
+from packages import SystemManager
 
-from .DisplayItems import QSystemInfo
+from .Items import QSystemInfo
 
 class QSystemSelector(QListWidget):
     def __init__(self, parent=None):

@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
-from ...SystemModule import ConnectionManager
+from packages.SystemModule.Connection import ConnectionManager
 
 
 class QConnectionItemWidget(QWidget):

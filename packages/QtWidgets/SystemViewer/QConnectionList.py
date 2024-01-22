@@ -2,9 +2,9 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
-from ..SystemModule import ConnectionManager
+from packages.SystemModule.Connection import ConnectionManager
 
-from .DisplayItems import QConnectionItemWidget
+from .Items import QConnectionItemWidget
 
 class QConnectionList(QListWidget):
     def __init__(self, parent=None):
