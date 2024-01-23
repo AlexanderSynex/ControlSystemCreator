@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
+from packages.SystemModule import SystemManager, ConnectionManager
+
 class QSystemDrawElement(QGraphicsItem):
     __width, __height = 100, 50
     __font_size = 10
@@ -11,9 +13,20 @@ class QSystemDrawElement(QGraphicsItem):
         self.__name = QStaticText()
         self.__name.setText(name)
         
-        self.__ins = {'in_1' : 0, 'in_2' : 0}     #In Points
-        self.__outs = {'out_1':1}    #Out Points
-    
+        if not SystemManager().exists(name):
+            return
+        
+        sys = SystemManager().get_instance(name)
+        
+        self.__ins = {}     #In Points
+        self.__outs = {}    #Out Points
+        
+        for key in sys.input_keys():
+            self.__ins[key] = 0
+            
+        for key in sys.output_keys():
+            self.__outs[key] = 0
+            
     
     def __update_text(self):
         rect = self.__nameItem.boundingRect()
