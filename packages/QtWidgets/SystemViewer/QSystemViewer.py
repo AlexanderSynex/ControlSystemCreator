@@ -38,8 +38,6 @@ class QSystemViewer(QMainWindow):
         __graph_layout.addWidget(self.__graph_view)
         self.__graph_container.setLayout(__graph_layout)
         
-        self.__graph_view.add(QSystemDrawElement())
-        
         self.__layout.addWidget(self.__signals_container, 0)
         self.__layout.addWidget(self.__graph_container, 1)
         
@@ -78,3 +76,4 @@ class QSystemViewer(QMainWindow):
         SystemDataWrapper().from_json(path=fileName)
         self.__signals_lw.add_signals(ConnectionManager().get_keys())
         
+        self.__graph_view.add(QSystemDrawElement("system"))
