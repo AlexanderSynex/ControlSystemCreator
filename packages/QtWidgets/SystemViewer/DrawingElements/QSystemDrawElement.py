@@ -21,10 +21,10 @@ class QSystemDrawElement(QGraphicsItem):
         self.__ins = {}     #In Points
         self.__outs = {}    #Out Points
         
-        for key in sys.input_keys():
+        for key in sys.input_keys:
             self.__ins[key] = 0
             
-        for key in sys.output_keys():
+        for key in sys.output_keys:
             self.__outs[key] = 0
             
     
@@ -42,7 +42,7 @@ class QSystemDrawElement(QGraphicsItem):
     
     
     def paint(self, painter, option, widget):                       # TODO
-        painter.drawRect(0, 0, self.__width, self.__height)
+        painter.drawRect(self.boundingRect())
         
         
         text_point = self.boundingRect().topLeft()
