@@ -31,10 +31,7 @@ class SystemDrawingManager(metaclass=Singleton):
             if system_name not in cls.__positions[system.weight]:
                 cls.__positions[system.weight].append(system_name)
     
-    
-    def draw(cls):
-        cls.__load_systems()
-        
+    def __draw_systems(cls):
         for column in cls.__positions:
             for i, system in enumerate(cls.__positions[column]):
                 draw_item = QSystemDrawElement(name=system)
@@ -42,3 +39,20 @@ class SystemDrawingManager(metaclass=Singleton):
                 draw_item.moveBy((rect.width() + cls.__margin) * column, 
                                  (rect.height() + cls.__margin) * i)
                 cls.__canvas.add(draw_item)
+                
+                cls.__draw_items.append(draw_item)
+    
+    
+    def __draw_connections(cls):
+        for system_item in cls.__draw_items:
+            print(system_item)
+        
+    
+    
+    def draw(cls):
+        cls.__load_systems()
+        
+        cls.__draw_systems()
+        cls.__draw_connections()
+        
+        
