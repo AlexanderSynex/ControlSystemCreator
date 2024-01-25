@@ -22,10 +22,10 @@ class QSystemDrawElement(QGraphicsItem):
         self.__outs = {}    #Out Points
         
         for key in sys.input_keys:
-            self.__ins[key] = 0
+            self.__ins[key] = QPointF(0, 0)
             
         for key in sys.output_keys:
-            self.__outs[key] = 0
+            self.__outs[key] = QPointF(0, 0)
             
     
     def __update_text(self):
@@ -36,34 +36,39 @@ class QSystemDrawElement(QGraphicsItem):
         
     
 
-    def boundingRect(self):                                         # TODO
+    def boundingRect(self):
         return QRectF(self.x(), self.y(),
                       self.__width, self.__height)
     
     
-    def paint(self, painter, option, widget):                       # TODO
+    def paint(self, painter, option, widget):
+        # Drawing system rectangle
         painter.drawRect(self.boundingRect())
         
-        
+        # Drawing system name over system rect
         text_point = self.boundingRect().topLeft()
         text_point.setY(text_point.y() - QFontMetricsF(painter.font()).ascent() - painter.pen().widthF())
-        
         painter.drawStaticText(text_point, QStaticText(self.__name))
         
-        painter.setBrush(QBrush(Qt.GlobalColor.green))
-        r = 3
+        # Calculating ports' positions
         y_step = self.__height / (len(self.__ins) + 1)
+        for i, port in enumerate(self.__ins):
+            self.__ins[port].setX(self.boundingRect().x())
+            self.__ins[port].setY(self.boundingRect().top() + y_step * (i + 1))
+            
         
-        x, y = self.boundingRect().x(), self.boundingRect().top() + y_step
-        for port in self.__ins:
-            painter.drawEllipse(QPointF(x, y), r, r)
-            y += y_step
-        
-        
-        painter.setBrush(QBrush(Qt.GlobalColor.red))
         y_step = self.__height / (len(self.__outs) + 1)
+        for i, port in enumerate(self.__outs):
+            self.__outs[port].setX(self.boundingRect().right())
+            self.__outs[port].setY(self.boundingRect().top() + y_step * (i + 1))
         
-        x, y = self.boundingRect().right(), self.boundingRect().top() + y_step
+        
+        # Drawing connection points
+        r = 3
+        painter.setBrush(QBrush(Qt.GlobalColor.green))
+        for port in self.__ins:
+            painter.drawEllipse(self.__ins[port], r, r)
+
+        painter.setBrush(QBrush(Qt.GlobalColor.red))
         for port in self.__outs:
-            painter.drawEllipse(QPointF(x, y), r, r)
-            y += y_step
+            painter.drawEllipse(self.__outs[port], r, r)
