@@ -21,6 +21,15 @@ class SystemManager(metaclass=Singleton):
         system = cls.__get(name)
         if system is None:
             system = System(name, Inputs=Inputs, Outputs=Outputs)
+            
+            for link_name in Inputs:
+                if ConnectionManager().exists(link_name):
+                    ConnectionManager().get_instance(link_name).add_connector(name)
+            
+            for link_name in Outputs:
+                if ConnectionManager().exists(link_name):
+                    ConnectionManager().get_instance(link_name).add_connector(name)
+            
             cls.__add(system)
         return system
     

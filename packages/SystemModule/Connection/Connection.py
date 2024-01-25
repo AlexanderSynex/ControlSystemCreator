@@ -4,6 +4,7 @@ class Connection(object):
         self.__value = value
         
         self.__weight = 0
+        self.__connectors = set()
     
     @property
     def value(self):
@@ -25,4 +26,10 @@ class Connection(object):
     def weight(self, value):
         self.__weight = max(self.__weight, value)
     
-
+    
+    def add_connector(self, name):
+        self.__connectors.add(name)
+        
+        
+    def print(self):
+        print(f"Link. {self.__name}={self.__value}. Connected with: {self.__connectors}")
