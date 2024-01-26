@@ -59,20 +59,20 @@ class QSystemDrawElement(QGraphicsItem):
     def __update_ports(self):
         y_step = self.__height / (len(self.__ins) + 1)
         for i, (port_name, point) in enumerate(self.__ins.items()):
-            point.setX(self.boundingRect().x())
-            point.setY(self.boundingRect().top() + y_step * (i + 1))
+            point.setX(self.x())
+            point.setY(self.y() + y_step * (i + 1))
             self.__ins[port_name] = point
         
         y_step = self.__height / (len(self.__outs) + 1)
         for i, (port_name, point) in enumerate(self.__outs.items()):
             point.setX(self.boundingRect().right())
-            point.setY(self.boundingRect().top() + y_step * (i + 1))
+            point.setY(self.y() + y_step * (i + 1))
             self.__outs[port_name] = point
             
     @property
     def input_points(self):
-        return [p for (_, p) in self.__ins.items()]
+        return [self.boundingRect().topLeft() + self.mapToScene(p) for (_, p) in self.__ins.items()]
     
     @property
     def output_points(self):
-        return [p for (_, p) in self.__outs.items()]
+        return [self.boundingRect().topLeft() + self.mapToScene(p) for (_, p) in self.__outs.items()]
