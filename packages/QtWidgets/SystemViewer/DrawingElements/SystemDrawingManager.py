@@ -1,7 +1,12 @@
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+
 from  packages.SystemModule.Singleton import Singleton
 from  packages.SystemModule import SystemManager
 
 from .QSystemDrawElement import QSystemDrawElement
+from .QSignalDrawElement import QSignalDrawElement
 
 class SystemDrawingManager(metaclass=Singleton):
     __margin = 10 # px
@@ -38,6 +43,7 @@ class SystemDrawingManager(metaclass=Singleton):
                 rect = draw_item.boundingRect()
                 draw_item.moveBy((rect.width() + cls.__margin) * column, 
                                  (rect.height() + cls.__margin) * i)
+                
                 cls.__canvas.add(draw_item)
                 
                 cls.__draw_items.append(draw_item)
@@ -45,7 +51,15 @@ class SystemDrawingManager(metaclass=Singleton):
     
     def __draw_connections(cls):
         for system_item in cls.__draw_items:
-            print(system_item)
+            for in_p1 in system_item.input_points:
+                in_p2 = QPointF(in_p1) - QPointF(15, 0)
+                line_item = QSignalDrawElement(in_p1, in_p2)
+                cls.__canvas.add(line_item)
+            
+            for in_p1 in system_item.output_points:
+                in_p2 = QPointF(in_p1) + QPointF(15, 0)
+                line_item = QSignalDrawElement(in_p1, in_p2)
+                cls.__canvas.add(line_item)
         
     
     
