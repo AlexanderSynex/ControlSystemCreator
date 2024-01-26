@@ -24,6 +24,8 @@ class QSystemDrawElement(QGraphicsItem):
             
         for key in sys.output_keys:
             self.__outs[key] = QPointF(0, 0)
+            
+        self.__update_ports()
     
 
     def boundingRect(self):
@@ -47,12 +49,10 @@ class QSystemDrawElement(QGraphicsItem):
         r = 2
         painter.setBrush(QBrush(Qt.GlobalColor.green))
         for (port, point) in self.__ins.items():
-            print(f"Port = {port}, Point = {point}")
             painter.drawEllipse(point, r, r)
 
         painter.setBrush(QBrush(Qt.GlobalColor.red))
         for (port, point) in self.__outs.items():
-            print(f"Port = {port}, Point = {point}")
             painter.drawEllipse(point, r, r)
             
     
@@ -68,3 +68,11 @@ class QSystemDrawElement(QGraphicsItem):
             point.setX(self.boundingRect().right())
             point.setY(self.boundingRect().top() + y_step * (i + 1))
             self.__outs[port_name] = point
+            
+    @property
+    def input_points(self):
+        return [p for (_, p) in self.__ins.items()]
+    
+    @property
+    def output_points(self):
+        return [p for (_, p) in self.__outs.items()]
