@@ -4,7 +4,8 @@ class Connection(object):
         self.__value = value
         
         self.__weight = 0
-        self.__connectors = set()
+        self.__from_systems = set()
+        self.__to_systems = set()
     
     @property
     def value(self):
@@ -27,9 +28,16 @@ class Connection(object):
         self.__weight = max(self.__weight, value)
     
     
-    def add_connector(self, name):
-        self.__connectors.add(name)
+    def add_from_system(self, name):
+        self.__from_systems.add(name)
+        
+        
+    def add_to_system(self, name):
+        self.__to_systems.add(name)
         
         
     def print(self):
-        print(f"Link. {self.__name}={self.__value}. Connected with: {self.__connectors}")
+        print(f"Link: {self.__name}\n",
+              f"\tValue={self.__value}\n",
+              f"\tFrom: {self.__from_systems}\n",
+              f"\tTo: {self.__to_systems}")

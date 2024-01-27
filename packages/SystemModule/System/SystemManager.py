@@ -24,11 +24,11 @@ class SystemManager(metaclass=Singleton):
             
             for link_name in Inputs:
                 if ConnectionManager().exists(link_name):
-                    ConnectionManager().get_instance(link_name).add_connector(name)
+                    ConnectionManager().get_instance(link_name).add_from_system(name)
             
             for link_name in Outputs:
                 if ConnectionManager().exists(link_name):
-                    ConnectionManager().get_instance(link_name).add_connector(name)
+                    ConnectionManager().get_instance(link_name).add_to_system(name)
             
             cls.__add(system)
         return system
