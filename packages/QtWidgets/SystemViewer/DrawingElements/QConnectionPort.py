@@ -17,7 +17,7 @@ class QConnectionPort(QGraphicsItem):
     
     @property
     def center(self):
-        return self.boundingRect().center()
+        return self.mapToParent(self.boundingRect().center())
     
     def boundingRect(self):
         r = self.__radius
