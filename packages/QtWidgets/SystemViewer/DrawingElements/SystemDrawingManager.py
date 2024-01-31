@@ -9,7 +9,7 @@ from .QSystemDrawElement import QSystemDrawElement
 from .QSignalDrawElement import QSignalDrawElement
 
 class SystemDrawingManager(metaclass=Singleton):
-    __margin = 10 # px
+    __x_margin, __y_margin = 100, 50 # px
     __positions = {0 : []} # index inside weigths
     __draw_items = {}
     __canvas = None
@@ -41,6 +41,13 @@ class SystemDrawingManager(metaclass=Singleton):
         for column in cls.__positions:
             for i, system in enumerate(cls.__positions[column]):
                 draw_item = QSystemDrawElement(name=system)
+
+                w = draw_item.boundingRect().width()
+                h = draw_item.boundingRect().height()
+
+                draw_item.moveBy((w + cls.__x_margin) * column,
+                                 (h + cls.__y_margin) * i)
+
                 cls.__draw_items[system] = draw_item
                 cls.__canvas.add(draw_item)
                 
