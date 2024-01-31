@@ -9,8 +9,6 @@ class QConnectionPort(QGraphicsItem):
         self.__name = link_name
         self.__radius = 2
     
-    
-    
     @property
     def name(self):
         return self.__name
@@ -26,6 +24,5 @@ class QConnectionPort(QGraphicsItem):
     
     def paint(self, painter, option, widget):
         r = self.__radius
-        # print(f"Draw {self.__name} port at {self.boundingRect().center()}")
-        painter.drawText(self.boundingRect().topLeft(), self.name)
+        # painter.drawText(self.boundingRect().topLeft(), self.name)
         painter.drawEllipse(self.boundingRect().center(), r, r)
