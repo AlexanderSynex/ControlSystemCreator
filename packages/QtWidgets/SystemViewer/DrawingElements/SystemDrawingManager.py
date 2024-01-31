@@ -64,6 +64,17 @@ class SystemDrawingManager(metaclass=Singleton):
                 signal_item = QSignalDrawElement(port.name)
                 cls.__canvas.add(signal_item)
 
+                DrawnItemsManager().add_signal(signal_item)
+
+        # Системы на входе
+        for name in cls.__positions[0]:
+            system = DrawnItemsManager().get_system(name)
+            for port in system.input_ports:
+                # Создать сигнал и отобрзить его
+                signal_item = QSignalDrawElement(port.name)
+                cls.__canvas.add(signal_item)
+
+                DrawnItemsManager().add_signal(signal_item)
 
     def draw(cls):
         cls.__load_systems()

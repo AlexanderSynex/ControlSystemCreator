@@ -16,12 +16,13 @@ class QSignalDrawElement(QGraphicsItem):
         self.__name = name
         self.__value = 0
         
-        self.__from_point = QPointF()
-        self.__to_points = []
+        self._from_point = QPointF()
+        self._to_points = []
 
         self.__from_point, self.__to_points = self.__parse_link_to_points()
 
         print(f"Signal={self.name} From=({self.from_point.x()}, {self.from_point.y()}), To={self.to_points}")
+    
     
     def update_value(self):
         if (ConnectionManager().exists(self.__name)):
@@ -64,7 +65,8 @@ class QSignalDrawElement(QGraphicsItem):
         
     # Собирает точки для конкретной связи
     def __parse_link_to_points(self):
-        p1, p2s = QPointF(), []
+        p1, p2s = None, []
+        margin = 50
         
         if not ConnectionManager().exists(self.__name):
             return p1, p2s
@@ -77,7 +79,7 @@ class QSignalDrawElement(QGraphicsItem):
             if i_port != None:
                 p1 = system_item.mapToParent(i_port.center)
                 # print(f"Signal={self.name} From=({p1.x()}, {p1.y()}), To={p2s}")
-        
+
         for to_system in link.to_systems:
             if DrawnItemsManager().system_exists(to_system):
                 system_item = DrawnItemsManager().get_system(to_system)
@@ -86,5 +88,13 @@ class QSignalDrawElement(QGraphicsItem):
                 if i_port != None:
                     p2 = system_item.mapToParent(i_port.center)
                     p2s.append(p2)
-        
+
+        if p1 is None:
+            p1 = QPointF()
+            p1.setX(min([p.x() for p in p2s]) - margin) # Left
+            p1.setY(min([p.y() for p in p2s])) # Top
+            
+        if not p2s:
+            p2s.append(p1 + QPointF(margin, 0))
+
         return p1, p2s
