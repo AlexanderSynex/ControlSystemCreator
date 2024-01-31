@@ -4,7 +4,7 @@ class Connection(object):
         self.__value = value
         
         self.__weight = 0
-        self.__from_systems = ""
+        self.__from_system = ""
         self.__to_systems = set()
     
     @property
@@ -29,15 +29,15 @@ class Connection(object):
     
     
     @property
-    def from_systems(self):
-        return self.__from_systems
+    def from_system(self):
+        return self.__from_system
     
     @property
     def to_systems(self):
         return self.__to_systems
     
     def add_from_system(self, name):
-        self.__from_systems = name
+        self.__from_system = name
         
         
     def add_to_system(self, name):
@@ -47,5 +47,5 @@ class Connection(object):
     def print(self):
         print(f"Link: {self.__name}\n",
               f"\tValue={self.__value}\n",
-              f"\tFrom: {self.__from_systems}\n",
+              f"\tFrom: {self.__from_system}\n",
               f"\tTo: {self.__to_systems}")
