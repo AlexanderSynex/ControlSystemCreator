@@ -46,17 +46,32 @@ class QSystemDrawElement(QGraphicsItem):
         painter.drawRect(self.boundingRect())
         # Drawing system name over system rect
         painter.drawText(self.boundingRect().topLeft(), self.__name)
-        
+
+
+    def input_port(self, name):
+        for port in self.__in_ports:
+            if port.name == name:
+                return port
+        return None
+
+
+    def output_port(self, name):
+        #return {n: self.boundingRect().topLeft() + self.mapToScene(p) for (n, p) in self.__outs.items()}
+        for port in self.__out_ports:
+            if port.name == name:
+                return port
+        return None
+
             
     @property
-    def input_points(self):
+    def input_ports(self):
         # return {n: self.boundingRect().topLeft() + self.mapToScene(p) for (n, p) in self.__ins.items()}
-        return {n: p for (n, p) in self.__ins.items()}
-    
+        return self.__in_ports
+
     @property
-    def output_points(self):
+    def output_ports(self):
         #return {n: self.boundingRect().topLeft() + self.mapToScene(p) for (n, p) in self.__outs.items()}
-        return {n: p for (n, p) in self.__outs.items()}
+        return self.__out_ports
 
     @property
     def name(self):
