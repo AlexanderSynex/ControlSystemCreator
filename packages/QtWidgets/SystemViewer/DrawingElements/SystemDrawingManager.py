@@ -55,14 +55,21 @@ class SystemDrawingManager(metaclass=Singleton):
                 
     
     def __draw_connections(cls):
-        # Для каждой системы
-        for system in 
-    
+        # Для каждой системы на холсте
+        for name in DrawnItemsManager().systems:
+            system = DrawnItemsManager().get_system(name)
+            # Для каждого выходного порта
+            for port in system.output_ports:
+                # Создать сигнал и отобрзить его
+                signal_item = QSignalDrawElement(port.name)
+                cls.__canvas.add(signal_item)
+
+
     def draw(cls):
         cls.__load_systems()
         
         cls.__draw_systems()
-        # cls.__draw_connections()
+        cls.__draw_connections()
 
 
 
