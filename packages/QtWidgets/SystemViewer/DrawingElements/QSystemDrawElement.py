@@ -57,3 +57,7 @@ class QSystemDrawElement(QGraphicsItem):
     def output_points(self):
         #return {n: self.boundingRect().topLeft() + self.mapToScene(p) for (n, p) in self.__outs.items()}
         return {n: p for (n, p) in self.__outs.items()}
+
+    @property
+    def name(self):
+        return self.__name
