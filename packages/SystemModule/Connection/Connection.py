@@ -4,7 +4,7 @@ class Connection(object):
         self.__value = value
         
         self.__weight = 0
-        self.__from_systems = set()
+        self.__from_systems = ""
         self.__to_systems = set()
     
     @property
@@ -28,8 +28,16 @@ class Connection(object):
         self.__weight = max(self.__weight, value)
     
     
+    @property
+    def from_systems(self):
+        return self.__from_systems
+    
+    @property
+    def to_systems(self):
+        return self.__to_systems
+    
     def add_from_system(self, name):
-        self.__from_systems.add(name)
+        self.__from_systems = name
         
         
     def add_to_system(self, name):
