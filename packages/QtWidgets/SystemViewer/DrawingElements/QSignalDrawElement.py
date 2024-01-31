@@ -23,6 +23,10 @@ class QSignalDrawElement(QGraphicsItem):
 
         print(f"Signal={self.name} From=({self.from_point.x()}, {self.from_point.y()}), To={self.to_points}")
     
+    def update_value(self):
+        if (ConnectionManager().exists(self.__name)):
+            self.__value = ConnectionManager().get_instance(self.__name).value
+
     @property
     def from_point(self):
         return self.__from_point
@@ -35,6 +39,7 @@ class QSignalDrawElement(QGraphicsItem):
     def name(self):
         return self.__name
     
+
     def boundingRect(self):
         min_x, max_x = self.from_point.x(), self.from_point.x()
         min_y, max_y = self.from_point.y(), self.from_point.y()
@@ -47,15 +52,16 @@ class QSignalDrawElement(QGraphicsItem):
         
         return QRectF(QPointF(min_x, min_y), QPointF(max_x, max_y))
     
+
     def paint(self, painter, option, widget):
         self.__from_point, self.__to_points = self.__parse_link_to_points()
         for to_point in self.to_points:
             painter.drawLine(self.from_point, to_point)
         
-        painter.drawText(self.from_point, self.__name)
+        self.update_value()
+        painter.drawText(self.from_point, f"{self.__name} (value={self.__value})")
+
         
-        
-    
     # Собирает точки для конкретной связи
     def __parse_link_to_points(self):
         p1, p2s = QPointF(), []
