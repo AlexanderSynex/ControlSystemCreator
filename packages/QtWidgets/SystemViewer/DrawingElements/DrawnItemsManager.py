@@ -21,7 +21,6 @@ class DrawnItemsManager(metaclass=Singleton):
     
     def add_system(cls, item):
         cls.__add(item, cls.__systems)
-        print(f"Systems drawn: {cls.__systems.keys()}")
 
     def add_signal(cls, item):
         cls.__add(item, cls.__signals)
