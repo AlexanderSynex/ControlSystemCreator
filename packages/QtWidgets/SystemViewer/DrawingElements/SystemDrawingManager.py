@@ -8,15 +8,17 @@ from  packages.SystemModule import (ConnectionManager, SystemManager)
 from .QSystemDrawElement import QSystemDrawElement
 from .QSignalDrawElement import QSignalDrawElement
 
+from .DrawnItemsManager import DrawnItemsManager
+
 class SystemDrawingManager(metaclass=Singleton):
     __x_margin, __y_margin = 100, 50 # px
     __positions = {0 : []} # index inside weigths
-    __draw_items = {}
     __canvas = None
     
     
     def __clear(cls):
         cls.__positions = {0 : []}
+        DrawnItemsManager().clear()
         __draw_items = {}
     
     
@@ -48,16 +50,19 @@ class SystemDrawingManager(metaclass=Singleton):
                 draw_item.moveBy((w + cls.__x_margin) * column,
                                  (h + cls.__y_margin) * i)
 
-                cls.__draw_items[system] = draw_item
+                DrawnItemsManager().add_system(draw_item)
                 cls.__canvas.add(draw_item)
                 
     
     def __draw_connections(cls):
-        pass
-        
+        # Для каждой системы
+        for system in 
     
     def draw(cls):
         cls.__load_systems()
         
         cls.__draw_systems()
         # cls.__draw_connections()
+
+
+
