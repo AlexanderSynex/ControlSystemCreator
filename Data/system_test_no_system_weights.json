@@ -1,69 +1,80 @@
 {
+  "signals": [
+    {
+      "name": "height",
+      "value": 3,
+      "weight": 0
+    },
+    {
+      "name": "width",
+      "value": 5,
+      "weight": 0
+    },
+    {
+      "name": "length",
+      "value": 10,
+      "weight": 0
+    },
+    {
+      "name": "_link1",
+      "value": 0,
+      "weight": 1
+    },
+    {
+      "name": "_link2",
+      "value": 0,
+      "weight": 2
+    },
+    {
+      "name": "_link3",
+      "value": 0,
+      "weight": 2
+    },
+    {
+      "name": "_link4",
+      "value": 0,
+      "weight": 3
+    }
+  ],
   "systems": [
     {
       "name": "System1",
       "inputs": [
-        {
-          "name": "height",
-          "value": 0,
-          "weight": 0
-        },
-        {
-          "name": "width",
-          "value": 0,
-          "weight": 0
-        },
-        {
-          "name": "length",
-          "value": 0,
-          "weight": 0
-        }
+        "height",
+        "width",
+        "length"
       ],
       "outputs": [
-        {
-          "name": "_link1",
-          "value": 0,
-          "weight": 1
-        }
+        "_link1"
       ]
     },
     {
       "name": "System2",
       "inputs": [
-        {
-          "name": "length",
-          "value": 0,
-          "weight": 0
-        }
+        "length"
       ],
       "outputs": [
-        {
-          "name": "_link2",
-          "value": 0,
-          "weight": 1
-        }
+        "_link2"
       ]
     },
     {
       "name": "System3",
       "inputs": [
-        {
-          "name": "_link1",
-          "value": 0,
-          "weight": 1
-        },
-        {
-          "name": "_link2",
-          "value": 0,
-          "weight": 1
-        }
+        "_link1",
+        "_link2"
       ],
       "outputs": [
-        {
-          "name": "_link3",
-          "value": 0,
-          "weight": 2
-        }
+        "_link3"
+      ]
+    },
+    {
+      "name": "System4",
+      "inputs": [
+        "_link2",
+        "_link3"
+      ],
+      "outputs": [
+        "_link4"
       ]
     }
   ]
