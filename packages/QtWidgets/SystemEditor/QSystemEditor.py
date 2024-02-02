@@ -142,7 +142,8 @@ class QSystemEditor(QMainWindow):
         
         fileName, _ = QFileDialog().getSaveFileName(self,
                                                     caption="Save systems info",
-                                                    directory=QDir().homePath(), 
+                                                    #directory=QDir().homePath(), 
+                                                    directory=QDir().currentPath(), 
                                                     filter="JavaScript Object Notation Files (*.json)")
         
         if not fileName:
