@@ -13,13 +13,10 @@ class SystemDataWrapper(metaclass=Singleton):
         if not SystemManager().exists(system_name):
             return {}
         
-        inputs = []
-        for name in SystemManager().get_instance(system_name).input_keys:
-            inputs.append(ConnectionDataWrapper().to_dict(link_name=name))
+        sys = SystemManager().get_instance(system_name)
         
-        outputs = []
-        for name in SystemManager().get_instance(system_name).output_keys:
-            outputs.append(ConnectionDataWrapper().to_dict(link_name=name))
+        inputs = [name for name in sys.input_keys]        
+        outputs = [name for name in sys.output_keys]
         
         return dict(name=system_name, inputs=inputs, outputs=outputs)
     
@@ -62,11 +59,15 @@ class SystemDataWrapper(metaclass=Singleton):
         if SystemManager().empty():
             return dict(systems=[])
         
+        signals=[]
+        for name in ConnectionManager().get_keys():
+            signals.append(ConnectionDataWrapper().to_dict(link_name=name))
+        
         systems=[]
         for name in SystemManager().get_keys():
             systems.append(cls.to_dict(name))
         
-        return dict(systems=systems)
+        return dict(signals=signals, systems=systems)
     
     
     def all_to_json(cls) -> str:
