@@ -70,8 +70,8 @@
     {
       "name": "System4",
       "inputs": [
-        "_link2",
-        "_link3"
+        "_link3",
+        "_link2"
       ],
       "outputs": [
         "_link4"
