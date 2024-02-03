@@ -5,7 +5,8 @@ from PyQt6.QtGui import *
 from .QConnectionList import QConnectionList
 from .QSystemDrawer import QSystemDrawer
 
-from .DrawingElements import QSystemDrawElement
+from .DrawingElements import QSystemDrawElement, QSignalDrawElement
+from .DrawingElements import SystemDrawingManager
 
 from packages.SystemModule.Connection import (ConnectionManager, 
                                               ConnectionDataWrapper)
@@ -47,6 +48,8 @@ class QSystemViewer(QMainWindow):
         
         self.__init_menu_bar()
         
+        SystemDrawingManager().set_canvas(self.__graph_view)
+        
     
     def __init_menu_bar(self):
         __file_menu = self.menuBar().addMenu("File")
@@ -76,4 +79,19 @@ class QSystemViewer(QMainWindow):
         SystemDataWrapper().from_json(path=fileName)
         self.__signals_lw.add_signals(ConnectionManager().get_keys())
         
-        self.__graph_view.add(QSystemDrawElement("system"))
+        # SystemManager().get_instance("system", ["in1", "in2"], ["out1", "out2", "out3"])
+        
+        # draw_item = QSystemDrawElement("system")
+        # self.__graph_view.add(draw_item)
+        
+        SystemDrawingManager().draw()
+        
+        # for in_p1 in draw_item.input_points:
+        #     in_p2 = QPointF(in_p1) - QPointF(15, 0)
+        #     line_item = QSignalDrawElement(in_p1, in_p2)
+        #     self.__graph_view.add(line_item)
+            
+        # for in_p1 in draw_item.output_points:
+        #     in_p2 = QPointF(in_p1) + QPointF(15, 0)
+        #     line_item = QSignalDrawElement(in_p1, in_p2)
+        #     self.__graph_view.add(line_item)
