@@ -46,7 +46,7 @@ class QSystemViewer(QMainWindow):
         self.setCentralWidget(self.__window)
         self.setWindowTitle("System Editor")
         
-        self.__init_menu_bar()
+        # self.__init_menu_bar()
         
         SystemDrawingManager().set_canvas(self.__graph_view)
         
@@ -77,21 +77,10 @@ class QSystemViewer(QMainWindow):
         self.__signals_lw.clear()
         
         SystemDataWrapper().from_json(path=fileName)
+        
+        self.update()
+        
+        
+    def update(self): 
         self.__signals_lw.add_signals(ConnectionManager().get_keys())
-        
-        # SystemManager().get_instance("system", ["in1", "in2"], ["out1", "out2", "out3"])
-        
-        # draw_item = QSystemDrawElement("system")
-        # self.__graph_view.add(draw_item)
-        
         SystemDrawingManager().draw()
-        
-        # for in_p1 in draw_item.input_points:
-        #     in_p2 = QPointF(in_p1) - QPointF(15, 0)
-        #     line_item = QSignalDrawElement(in_p1, in_p2)
-        #     self.__graph_view.add(line_item)
-            
-        # for in_p1 in draw_item.output_points:
-        #     in_p2 = QPointF(in_p1) + QPointF(15, 0)
-        #     line_item = QSignalDrawElement(in_p1, in_p2)
-        #     self.__graph_view.add(line_item)
