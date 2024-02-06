@@ -49,3 +49,15 @@ class MainWindow(QMainWindow):
         load_system_action.triggered.connect(lambda: print("load action"))
         save_system_action.triggered.connect(lambda: print("save action"))
         
+    
+    
+    def __clear_status(self):
+        self.__status_bar_label.setText("")
+    
+    
+    def __show_success_status(self, message):
+        self.__status_bar_label.setText(f"<b>SUCCESS</b>: {message}")
+    
+    
+    def __show_error_status(self, message):
+        self.__status_bar_label.setText(f"<b>ERROR</b>: {message}")
