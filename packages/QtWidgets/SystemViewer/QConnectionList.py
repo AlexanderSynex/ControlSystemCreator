@@ -7,6 +7,9 @@ from packages.SystemModule.Connection import ConnectionManager
 from .Items import QConnectionItemWidget
 
 class QConnectionList(QListWidget):
+    
+    value_changed = pyqtSignal(str)
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         
@@ -19,6 +22,9 @@ class QConnectionList(QListWidget):
         widget = QConnectionItemWidget(signal_name=name)
         item = QListWidgetItem(parent=self)
         item.setSizeHint(widget.minimumSizeHint())
+        
+        widget.value_changed.connect(self.value_changed)
+        
         self.setItemWidget(item, widget)
         
     

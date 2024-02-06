@@ -50,6 +50,8 @@ class QSystemViewer(QMainWindow):
         
         SystemDrawingManager().set_canvas(self.__graph_view)
         
+        self.__signals_lw.value_changed.connect(self.redraw)
+        
     
     def __init_menu_bar(self):
         __file_menu = self.menuBar().addMenu("File")
@@ -60,10 +62,16 @@ class QSystemViewer(QMainWindow):
         
         load_system_action.triggered.connect(self.__load_systems_action)
         
+        
     def clear(self):
         self.__graph_view.clear()
         self.__signals_lw.clear()
     
-    def update(self): 
+    
+    def reload_signals(self):
+        self.__signals_lw.clear()
         self.__signals_lw.add_signals(ConnectionManager().get_keys())
+    
+    def redraw(self):
+        self.reload_signals()
         SystemDrawingManager().draw()

@@ -23,9 +23,9 @@ class MainWindow(QMainWindow):
         tab.addTab(self.__editor, "Editor")
         tab.addTab(self.__viewer, "Viewer")
         
-        self.__editor.system_created.connect(self.__viewer.update)
+        self.__editor.system_created.connect(self.__viewer.redraw)
         self.__editor.system_created.connect(lambda name: self.__show_success_status(f"System {name} created"))
-        self.__editor.systems_loaded.connect(self.__viewer.update)
+        self.__editor.systems_loaded.connect(self.__viewer.redraw)
         self.__editor.system_error.connect(self.__show_error_status)
         
         self.setCentralWidget(tab)
@@ -106,7 +106,7 @@ class MainWindow(QMainWindow):
         self.__show_success_status(f"Loaded {len(loaded_names)} parameters")
         self.__editor.update_parameters(loaded_names)
         
-        self.__viewer.update()
+        self.__viewer.reload_signals()
 
 
     def __save_systems_action(self):
@@ -156,9 +156,9 @@ class MainWindow(QMainWindow):
         self.__show_success_status(f"Loaded {len(SystemManager().get_keys())} systems")
         
         self.__editor.update()
-        self.__viewer.update()
+        self.__viewer.redraw()
         
     
     def update(self):
         self.__editor.update()
-        self.__viewer.update()
+        self.__viewer.redraw()
