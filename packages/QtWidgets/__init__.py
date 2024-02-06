@@ -1,3 +1,3 @@
 from .SystemEditor import QSystemEditor
 from .SystemViewer import QSystemViewer
-from .MainWidget import MainWidget
+from .MainWindow import MainWindow

@@ -1,10 +1,10 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QTabWidget
 
-from packages.QtWidgets.MainWidget import MainWidget
+from packages.QtWidgets.MainWindow import MainWindow
 
 def main():
     app = QApplication([])
-    window = MainWidget()
+    window = MainWindow()
     window.show()
     
     return app.exec()
