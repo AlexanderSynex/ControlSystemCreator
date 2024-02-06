@@ -60,27 +60,10 @@ class QSystemViewer(QMainWindow):
         
         load_system_action.triggered.connect(self.__load_systems_action)
         
-    
-    def __load_systems_action(self):
-        # fileName, _ = QFileDialog().getOpenFileName(self,
-        #                                             caption="Load systems info",
-        #                                             directory=QDir().homePath(), 
-        #                                             filter="JavaScript Object Notation Files (*.json)")
-        
-        fileName = "./Data/system_test_no_system_weights.json"
-        
-        if not fileName:
-            self.__show_error_status("No systems loaded")
-            return
-        
-        SystemManager().clear()
+    def clear(self):
+        self.__graph_view.clear()
         self.__signals_lw.clear()
-        
-        SystemDataWrapper().from_json(path=fileName)
-        
-        self.update()
-        
-        
+    
     def update(self): 
         self.__signals_lw.add_signals(ConnectionManager().get_keys())
         SystemDrawingManager().draw()

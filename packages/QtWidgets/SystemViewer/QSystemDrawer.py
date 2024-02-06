@@ -14,5 +14,9 @@ class QSystemDrawer(QGraphicsView):
     def add(self, element):
         self.__scene.addItem(element)
         
-    
-    
+        
+    def clear(self):
+        self.__scene.clear()
+        self.items().clear()
+        
+        self.viewport().update()

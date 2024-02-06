@@ -4,13 +4,13 @@ from PyQt6.QtGui import *
 
 from packages.QtWidgets import QSystemEditor, QSystemViewer
 from packages.QtWidgets.SystemViewer.DrawingElements import SystemDrawingManager
+from packages.QtWidgets.SystemViewer.DrawingElements.DrawnItemsManager import DrawnItemsManager
 
 from packages.SystemModule.Connection import (ConnectionManager, 
                                               ConnectionDataWrapper)
 
 from packages.SystemModule.System import (SystemManager, 
                                           SystemDataWrapper)
-
 
 class MainWindow(QMainWindow):
     def __init__(self, parent = None):
@@ -40,6 +40,10 @@ class MainWindow(QMainWindow):
     def __init_menu_bar(self):
         __file_menu = self.menuBar().addMenu("File")
         
+        new_action = QAction("New", self)
+        new_action.setShortcut(QKeySequence("Ctrl+N"))
+        __file_menu.addAction(new_action)
+        
         load_links_action = QAction("Load inputs", self)
         load_links_action.setShortcut(QKeySequence("Ctrl+O"))
         __file_menu.addAction(load_links_action)
@@ -54,11 +58,21 @@ class MainWindow(QMainWindow):
         save_system_action.setShortcut(QKeySequence("Ctrl+S"))
         __file_menu.addAction(save_system_action)
         
+        
+        new_action.triggered.connect(self.__new_systems_action)
         load_links_action.triggered.connect(self.__load__input_links_action)
         load_system_action.triggered.connect(self.__load_systems_action)
         save_system_action.triggered.connect(self.__save_systems_action)
         
     
+    def __new_systems_action(self):
+        ConnectionManager().clear()
+        SystemManager().clear()
+        DrawnItemsManager().clear()
+        SystemDrawingManager().clear()
+        self.__editor.clear()   
+        self.__viewer.clear()
+
     
     def __clear_status(self):
         self.__status_bar_label.setText("")
@@ -93,6 +107,7 @@ class MainWindow(QMainWindow):
         self.__editor.update_parameters(loaded_names)
         
         self.__viewer.update()
+
 
     def __save_systems_action(self):
         if SystemManager().empty():

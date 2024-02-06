@@ -16,7 +16,7 @@ class SystemDrawingManager(metaclass=Singleton):
     __canvas = None
     
     
-    def __clear(cls):
+    def clear(cls):
         cls.__positions = {0 : []}
         DrawnItemsManager().clear()
         __draw_items = {}
@@ -27,7 +27,7 @@ class SystemDrawingManager(metaclass=Singleton):
     
     
     def __load_systems(cls):
-        cls.__clear()
+        cls.clear()
         
         for system_name in SystemManager().get_keys():
             system = SystemManager().get_instance(system_name)

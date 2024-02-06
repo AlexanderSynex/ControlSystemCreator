@@ -78,6 +78,7 @@ class QSystemEditor(QWidget):
     
     def clear(self):
         self.__system_selector.clear()
+        self.__parameters_edit.clear()
         
         
     def update(self):
