@@ -17,6 +17,9 @@ class SystemDrawingManager(metaclass=Singleton):
     
     
     def clear(cls):
+        if cls.__canvas is not None:
+            cls.__canvas.clear()
+            
         cls.__positions = {0 : []}
         DrawnItemsManager().clear()
         __draw_items = {}
