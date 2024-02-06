@@ -51,7 +51,7 @@ class QSystemEditor(QMainWindow):
         self.statusBar().addWidget(self.__status_bar_label)
         self.__clear_status()
         
-        self.__init_menu_bar()
+        # self.__init_menu_bar()
     
     
     def __init_menu_bar(self):
