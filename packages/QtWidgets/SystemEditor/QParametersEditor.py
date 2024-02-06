@@ -69,6 +69,12 @@ class QParametersEditor(QGroupBox):
         self.create_button_pressed.emit(self.__get_system_attributes())
     
     
+    def clear(self):
+        self.clear_parameters_list()
+        self.__name_edit.setText("")
+        self.__output_number_edit.setValue(self.__output_number_edit.minimum())
+        
+    
     def clear_parameters_list(self):
         self.__input_lw.clear()
     

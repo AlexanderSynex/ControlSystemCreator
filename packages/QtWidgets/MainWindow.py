@@ -5,23 +5,36 @@ from PyQt6.QtGui import *
 from packages.QtWidgets import QSystemEditor, QSystemViewer
 from packages.QtWidgets.SystemViewer.DrawingElements import SystemDrawingManager
 
+from packages.SystemModule.Connection import (ConnectionManager, 
+                                              ConnectionDataWrapper)
+
+from packages.SystemModule.System import (SystemManager, 
+                                          SystemDataWrapper)
+
+
 class MainWindow(QMainWindow):
     def __init__(self, parent = None):
         super().__init__(parent)
         
         tab = QTabWidget(self)
-        viewer = QSystemViewer()
-        editor = QSystemEditor()
+        self.__viewer = QSystemViewer()
+        self.__editor = QSystemEditor()
         
-        tab.addTab(editor, "Editor")
-        tab.addTab(viewer, "Viewer")
+        tab.addTab(self.__editor, "Editor")
+        tab.addTab(self.__viewer, "Viewer")
         
-        editor.system_created.connect(viewer.update)
-        editor.systems_loaded.connect(viewer.update)
+        self.__editor.system_created.connect(self.__viewer.update)
+        self.__editor.system_created.connect(lambda name: self.__show_success_status(f"System {name} created"))
+        self.__editor.systems_loaded.connect(self.__viewer.update)
+        self.__editor.system_error.connect(self.__show_error_status)
         
         self.setCentralWidget(tab)
         
         self.__init_menu_bar()
+        
+        self.__status_bar_label = QLabel()
+        self.statusBar().addWidget(self.__status_bar_label)
+        self.__clear_status()
         
     
     def __init_menu_bar(self):
@@ -41,13 +54,9 @@ class MainWindow(QMainWindow):
         save_system_action.setShortcut(QKeySequence("Ctrl+S"))
         __file_menu.addAction(save_system_action)
         
-        # load_links_action.triggered.connect(self.__load__input_links_action)
-        # load_system_action.triggered.connect(self.__load_systems_action)
-        # save_system_action.triggered.connect(self.__save_systems_action)
-        
-        load_links_action.triggered.connect(lambda: print("load action"))
-        load_system_action.triggered.connect(lambda: print("load action"))
-        save_system_action.triggered.connect(lambda: print("save action"))
+        load_links_action.triggered.connect(self.__load__input_links_action)
+        load_system_action.triggered.connect(self.__load_systems_action)
+        save_system_action.triggered.connect(self.__save_systems_action)
         
     
     
@@ -61,3 +70,80 @@ class MainWindow(QMainWindow):
     
     def __show_error_status(self, message):
         self.__status_bar_label.setText(f"<b>ERROR</b>: {message}")
+
+
+    def __load__input_links_action(self):
+        # fileName, _ = QFileDialog.getOpenFileName(self, 
+        #                                        caption="Load inputs", 
+        #                                        directory=QDir().homePath(), 
+        #                                        filter="Comma-Separated Files (*.csv)")
+        
+        fileName = "./Data/file1.csv"
+        
+        if not fileName:
+            self.__show_error_status("No parameters loaded")
+            return
+        
+        loaded_names = ConnectionDataWrapper().load_from_csv(fileName)
+        
+        if not loaded_names:
+            self.__show_error_status("No parameters loaded")
+        
+        self.__show_success_status(f"Loaded {len(loaded_names)} parameters")
+        self.__editor.update_parameters(loaded_names)
+        
+        self.__viewer.update()
+
+    def __save_systems_action(self):
+        if SystemManager().empty():
+            self.__show_error_status("No systems to save")
+            return
+        
+        fileName, _ = QFileDialog().getSaveFileName(self,
+                                                    caption="Save systems info",
+                                                    #directory=QDir().homePath(), 
+                                                    directory=QDir().currentPath(), 
+                                                    filter="JavaScript Object Notation Files (*.json)")
+        
+        if not fileName:
+            self.__show_error_status("System saving was canceled")
+            return
+        
+        if '.json' not in fileName:
+            fileName += '.json'
+        
+        file = QFile(fileName)
+        if not file.open(QIODevice.OpenModeFlag.WriteOnly | QIODevice.OpenModeFlag.Text):
+            self.__show_error_status("File to save could not be opened")
+            return
+        
+        QTextStream(file) << SystemDataWrapper().all_to_json()
+        file.close()
+        
+        self.__show_success_status(f"Systems saved in {fileName}")
+        
+        
+    def __load_systems_action(self):
+        # fileName, _ = QFileDialog().getOpenFileName(self,
+        #                                             caption="Load systems info",
+        #                                             directory=QDir().homePath(), 
+        #                                             filter="JavaScript Object Notation Files (*.json)")
+        
+        fileName = "./Data/system_test_no_system_weights.json"
+        
+        if not fileName:
+            self.system_error.emit("No systems loaded")
+            return
+        
+        SystemManager().clear()
+        SystemDataWrapper().from_json(path=fileName)
+        
+        self.__show_success_status(f"Loaded {len(SystemManager().get_keys())} systems")
+        
+        self.__editor.update()
+        self.__viewer.update()
+        
+    
+    def update(self):
+        self.__editor.update()
+        self.__viewer.update()
