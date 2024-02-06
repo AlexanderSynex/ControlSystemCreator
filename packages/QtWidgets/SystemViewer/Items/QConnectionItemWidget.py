@@ -14,6 +14,8 @@ class QConnectionItemWidget(QWidget):
         
         self.__init_UI()
         
+        self.__isChanged = False
+        
         
     def __init_UI(self):
         self.__layout = QHBoxLayout(self)
@@ -21,15 +23,15 @@ class QConnectionItemWidget(QWidget):
         self.__name_label = QLabel()        
         self.__value_edit = QDoubleSpinBox()
         
-        # self.__value_edit.setReadOnly(True)
-        
         self.__layout.addWidget(self.__name_label, 2)
         self.__layout.addWidget(self.__value_edit, 4)
         
         self.__value_edit.installEventFilter(self)
         
         self.update_system_info()
-    
+        
+        self.__value_edit.valueChanged.connect(self.__setChanged)
+        
     
     def update_system_info(self):
         
@@ -49,5 +51,17 @@ class QConnectionItemWidget(QWidget):
                 if ConnectionManager().exists(self.signal_name):
                     ConnectionManager().get_instance(self.signal_name).value = self.__value_edit.value()
                     self.value_changed.emit(self.signal_name)
+                    self.__isChanged = False
+                    self.__updateField()
                 return True
         return QWidget.eventFilter(self, widget, event)
+    
+    def __setChanged(self):
+        self.__isChanged = True
+        self.__updateField()
+    
+    
+    def __updateField(self):
+        self.__value_edit.setSuffix("")
+        if self.__isChanged:
+            self.__value_edit.setSuffix(" (unsaved)")
