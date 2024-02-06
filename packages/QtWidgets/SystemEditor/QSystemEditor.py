@@ -5,6 +5,8 @@ from PyQt6.QtGui import *
 from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
+from packages.QtWidgets.SystemViewer import QSystemViewer
+
 from .Items import QSystemInfo
 
 from packages.SystemModule.Connection import (ConnectionManager, 
@@ -18,6 +20,7 @@ from packages.SystemModule.System import (SystemManager,
 class QSystemEditor(QMainWindow):
     
     system_created = pyqtSignal(object)
+    systems_loaded = pyqtSignal()
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -118,8 +121,8 @@ class QSystemEditor(QMainWindow):
         
         if not loaded_names:
             self.__show_error_status("No parameters loaded")
-        self.__show_success_status(f"Loaded {len(loaded_names)} parameters")
         
+        self.__show_success_status(f"Loaded {len(loaded_names)} parameters")
         self.__parameters_edit.update_parameters_list(loaded_names)
         
     
@@ -185,4 +188,9 @@ class QSystemEditor(QMainWindow):
         self.__parameters_edit.clear_parameters_list()
         self.__parameters_edit.update_parameters_list(ConnectionManager().get_keys())
         self.__show_success_status(f"Loaded {len(SystemManager().get_keys())} systems")
+        self.systems_loaded.emit()
+    
+    def __open_viewer_action(self):
+        viewer = QSystemViewer()
         
+        viewer.show()
