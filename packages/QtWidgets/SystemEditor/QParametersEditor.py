@@ -29,7 +29,11 @@ class QParametersEditor(QGroupBox):
         __input_gb = QGroupBox("Входные сигналы")
         __input_layout = QVBoxLayout()
         self.__input_lw = QListWidget()
-    
+        
+        self.__add_button = QPushButton("Add signal")
+        __input_layout.addWidget(self.__add_button)
+        self.__add_button.clicked.connect(self.__create_signal)
+        
         __input_layout.addWidget(self.__input_lw)
         __input_gb.setLayout(__input_layout)
         
@@ -108,3 +112,11 @@ class QParametersEditor(QGroupBox):
         return dict(name=self.__get_name(), 
                     inputs=self.__get_checked_inputs(),
                     outputs=self.__get_number_outputs())
+        
+    def __create_signal(self):
+        dialog = QSignalAdder()
+        dialog.signal_created.connect(lambda name : self.update_parameters_list([name]))
+        
+        dialog.exec()
+        
+        
