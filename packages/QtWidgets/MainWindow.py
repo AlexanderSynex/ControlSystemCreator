@@ -87,12 +87,12 @@ class MainWindow(QMainWindow):
 
 
     def __load__input_links_action(self):
-        # fileName, _ = QFileDialog.getOpenFileName(self, 
-        #                                        caption="Load inputs", 
-        #                                        directory=QDir().homePath(), 
-        #                                        filter="Comma-Separated Files (*.csv)")
+        fileName, _ = QFileDialog.getOpenFileName(parent=self, 
+                                                  caption="Load inputs", 
+                                                  directory=QDir().currentPath(), 
+                                                  filter="Comma-Separated Files (*.csv)")
         
-        fileName = "./Data/file1.csv"
+        # fileName = "./Data/file1.csv"
         
         if not fileName:
             self.__show_error_status("No parameters loaded")
@@ -139,10 +139,10 @@ class MainWindow(QMainWindow):
         
         
     def __load_systems_action(self):
-        # fileName, _ = QFileDialog().getOpenFileName(self,
-        #                                             caption="Load systems info",
-        #                                             directory=QDir().homePath(), 
-        #                                             filter="JavaScript Object Notation Files (*.json)")
+        fileName, _ = QFileDialog().getOpenFileName(parent=self,
+                                                    caption="Load systems info",
+                                                    directory=QDir().currentPath(), 
+                                                    filter="JavaScript Object Notation Files (*.json)")
         
         fileName = "./Data/system_test_no_system_weights.json"
         
