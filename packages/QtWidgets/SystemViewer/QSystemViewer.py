@@ -4,7 +4,7 @@ from PyQt6.QtGui import *
 
 from .QConnectionList import QConnectionList
 from .QSystemDrawer import QSystemDrawer
-from .QSystemWebDrawer import QSystemWebDrawer
+from .WebDrawing import QSystemWebDrawer
 
 from .DrawingElements import QSystemDrawElement, QSignalDrawElement
 from .DrawingElements import SystemDrawingManager

@@ -8,4 +8,3 @@ class QSystemWebDrawer(QWebEngineView):
         super().__init__()
         
         self.setUrl(QUrl("http://google.com"))
-        # self.show()
