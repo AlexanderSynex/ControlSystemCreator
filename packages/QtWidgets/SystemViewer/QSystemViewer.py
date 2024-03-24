@@ -14,7 +14,7 @@ from packages.SystemModule.Connection import (ConnectionManager,
 from packages.SystemModule.System import (SystemManager,
                                           SystemDataWrapper)
 
-
+# System Viewer Window
 class QSystemViewer(QMainWindow):
     def __init__(self, parent = None):
         super().__init__(parent=parent)
