@@ -4,6 +4,7 @@ from PyQt6.QtGui import *
 
 from .QConnectionList import QConnectionList
 from .QSystemDrawer import QSystemDrawer
+from .QSystemWebDrawer import QSystemWebDrawer
 
 from .DrawingElements import QSystemDrawElement, QSignalDrawElement
 from .DrawingElements import SystemDrawingManager
@@ -35,7 +36,10 @@ class QSystemViewer(QMainWindow):
         
         self.__graph_container = QGroupBox("System image")
         __graph_layout = QHBoxLayout()
-        self.__graph_view = QSystemDrawer()
+        
+        self.__graph_view = QSystemWebDrawer()
+        
+        # self.__graph_view = QSystemDrawer()
         __graph_layout.addWidget(self.__graph_view)
         self.__graph_container.setLayout(__graph_layout)
         
@@ -48,7 +52,7 @@ class QSystemViewer(QMainWindow):
         
         # self.__init_menu_bar()
         
-        SystemDrawingManager().set_canvas(self.__graph_view)
+        # SystemDrawingManager().set_canvas(self.__graph_view)
         
         self.__signals_lw.value_changed.connect(self.redraw)
         
@@ -70,8 +74,8 @@ class QSystemViewer(QMainWindow):
     
     def reload_signals(self):
         self.__signals_lw.clear()
-        self.__signals_lw.add_signals(ConnectionManager().get_keys())
+        # self.__signals_lw.add_signals(ConnectionManager().get_keys())
     
     def redraw(self):
         self.reload_signals()
-        SystemDrawingManager().draw()
+        # SystemDrawingManager().draw()
