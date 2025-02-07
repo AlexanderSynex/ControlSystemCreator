@@ -52,7 +52,10 @@ class SystemDrawingManager(metaclass=Singleton):
 
                 draw_item.moveBy((w + cls.__x_margin) * column,
                                  (h + cls.__y_margin) * i)
-
+                
+                if (column + 1) % 2 == 0:
+                    draw_item.moveBy(0, cls.__y_margin)
+                
                 DrawnItemsManager().add_system(draw_item)
                 cls.__canvas.add(draw_item)
                 
