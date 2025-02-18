@@ -1,2 +1,2 @@
-from .QDataLoader import QDataLoader
-from .QDataLoaderControl import QDataLoaderControl
+from .QDataExplorer import QDataExplorer
+from .QDataController import QDataController
