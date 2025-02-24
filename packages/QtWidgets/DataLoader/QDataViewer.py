@@ -2,45 +2,32 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
+from PyQt6.QtWebEngineWidgets import QWebEngineView
+
 import pandas as pd
 import numpy as np 
 
+import plotly
+import plotly.graph_objects as go
+
 from packages.Utils.DBStorage import DBStorage
 
-class PandasTableModel(QAbstractTableModel):
-    def __init__(self, data, parent=None):
-        super().__init__(parent)
-        self._data = data
 
-    def rowCount(self, parent=None):
-        return len(self._data.values)
-
-    def columnCount(self, parent=None):
-        return self._data.columns.size
-
-    def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
-        if orientation == Qt.Orientation.Horizontal and role == Qt.ItemDataRole.DisplayRole:
-            return self._data.columns.values[section]
-            return 'Column {}'.format(section + 1)
-        return super().headerData(section, orientation, role)
-
-    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
-        if index.isValid():
-            if role == Qt.ItemDataRole.DisplayRole:
-                return QVariant(str(
-                    self._data.iloc[index.row()].iloc[index.column()]))
-        return QVariant()
-
-
-class QDataViewer(QTableView):
+class QDataViewer(QWebEngineView):
     
-    def __init__(self): 
-        super().__init__()
-
+    def __init__(self, *args, **kwargs): 
+        super().__init__(*args, **kwargs)
+        
+        self.setUrl(QUrl('https://google.com'))
 
     def redraw_table(self):
         if DBStorage().empty():
             return
         
         df = DBStorage().data()
-        self.setModel(PandasTableModel(df))
+        
+        fig = go.Figure(data=go.Scatter(y=df.to_numpy()))
+        fig.write_html('first_figure.html', auto_open=False)
+        path = QDir.current().filePath('first_figure.html') 
+        url = QUrl.fromLocalFile(path)
+        self.view.load(url)
