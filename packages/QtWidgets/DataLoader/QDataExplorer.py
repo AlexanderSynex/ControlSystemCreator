@@ -18,16 +18,23 @@ class QDataExplorer(QWidget):
     def __init_UI(self):
         self.__layout = QHBoxLayout()
 
-        self.__table = QDataViewer()
+        self.__plotter = QDataViewer()
         self.__control = QDataController()
 
-        self.__layout.addWidget(self.__table)
-        self.__layout.addWidget(self.__control,0)
+        self.__layout.addWidget(self.__plotter, 2)
+        self.__layout.addWidget(self.__control, 0)
         
         self.__control.db_path_recieved.connect(self.__load_csv_data)
-
+        self.__control.plot_changed.connect(self.__plotter.update_plot_state)
+        
         self.setLayout(self.__layout)
+        
+        self.__control.load()
+        
+        
 
     def __load_csv_data(self, path : str):
-        DBStorage().load(path)
-        self.__table.redraw_table()
+        print('here')
+        if DBStorage.load(path):
+            self.__plotter.redraw_table()
+            self.__control.update(DBStorage.titles())
