@@ -16,21 +16,20 @@ class MainWindow(QMainWindow):
     def __init__(self, parent = None):
         super().__init__(parent)
         
-        # tab = QTabWidget(self)
-        # self.__viewer = QSystemViewer()
-        # self.__editor = QSystemEditor()
-        self.__data_explorer = QDataExplorer(self)
-        self.setCentralWidget(self.__data_explorer)
-        # tab.addTab(self.__editor, "Editor")
-        # tab.addTab(self.__viewer, "Viewer")
-        # tab.addTab(self.__data_extractor, "Data Inspector")
+        tab = QTabWidget(self)
+        self.__viewer = QSystemViewer()
+        self.__editor = QSystemEditor()
+        self.__data_explorer = QDataExplorer()
+        tab.addTab(self.__editor, "Editor")
+        tab.addTab(self.__viewer, "Viewer")
+        tab.addTab(self.__data_explorer, "Dataset")
 
-        # self.__editor.system_created.connect(self.__viewer.redraw)
-        # self.__editor.system_created.connect(lambda name: self.__show_success_status(f"System {name} created"))
-        # self.__editor.systems_loaded.connect(self.__viewer.redraw)
-        # self.__editor.system_error.connect(self.__show_error_status)
+        self.__editor.system_created.connect(self.__viewer.redraw)
+        self.__editor.system_created.connect(lambda name: self.__show_success_status(f"System {name} created"))
+        self.__editor.systems_loaded.connect(self.__viewer.redraw)
+        self.__editor.system_error.connect(self.__show_error_status)
         
-        # self.setCentralWidget(tab)
+        self.setCentralWidget(tab)
         
         self.__init_menu_bar()
         

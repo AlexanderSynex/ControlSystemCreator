@@ -11,6 +11,7 @@ class SystemManager(metaclass=Singleton):
         name = system.name
         if name not in cls._systems:
             cls._systems[name] = system
+        system.print()
     
     def __get(cls, name):
         if name not in cls._systems:

@@ -3,12 +3,12 @@ import keras
 from keras import layers
 
 
-class SystemRegressionModel(keras.Sequential):
+class SystemRegressionModel():
     def __init__(self, inputs : int = 1, outputs : int = 1):
         super().__init__()
         if inputs < 0: inputs = 1
         if outputs < 0: outputs = 1
-        
+        self.__model = keras.Sequential([])
         self.__inputs = inputs
         self.__outputs = outputs
         self.__hidden = [ max(self.__inputs, self.__outputs) * 2,
@@ -33,9 +33,12 @@ class SystemRegressionModel(keras.Sequential):
             self.__outputs = value
         self.__rebuild()
     
+    @property
+    def model(self) -> keras.Sequential: return self.__model
+    
     def __rebuild(self):
-        self.layers = []
-        self.add(layers.Dense(self.__inputs))
+        layers_ = [layers.Dense(self.__inputs)]
         for layer in self.__hidden:
-            self.add(layers.Dense(layer))
-        self.add(layers.Dense(self.__outputs))
+            layers_.append(layers.Dense(layer))
+        layers_.append(layers.Dense(self.__outputs))
+        self.__model = keras.Sequential(layers=layers_)
