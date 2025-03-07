@@ -7,7 +7,7 @@ from .QDataSelector import QDataSelector
 class QDataController(QWidget):
 
     db_path_recieved = pyqtSignal(str)
-    plot_changed = pyqtSignal(str, bool)
+    selected_data_changed = pyqtSignal(str, bool)
     
     def __init__(self, parent = None):    
         super().__init__(parent)
@@ -27,7 +27,7 @@ class QDataController(QWidget):
         self.setLayout(self.__layout)
         
         self.__load_button.clicked.connect(self.__load_db)
-        self.__selector.plot_changed.connect(self.plot_changed)
+        self.__selector.selected_data_changed.connect(lambda _ : self.selected_data_changed.emit() )
     
     
     def __load_db(self):

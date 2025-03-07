@@ -8,14 +8,14 @@ from .Items import QDataItem
 
 class QDataSelector(QListWidget):
     
-    plot_changed = pyqtSignal(str, bool)
+    selected_data_changed = pyqtSignal(str, bool)
     
     def __init__(self, parent = None):    
         super().__init__(parent)
         self.itemChanged.connect(self.display_item)
     
     def display_item(self, item : QListWidgetItem):
-        self.plot_changed.emit(item.text(), item.checkState() is Qt.CheckState.Checked)
+        self.selected_data_changed.emit(item.text(), item.checkState() is Qt.CheckState.Checked)
     
     def display(self, titles : list):
         self.clear()

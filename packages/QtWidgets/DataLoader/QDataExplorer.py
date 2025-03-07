@@ -8,7 +8,9 @@ from .QDataViewer import QDataViewer
 from packages.Utils.DBStorage import DBStorage
 
 class QDataExplorer(QWidget):
-
+    
+    data_loaded = pyqtSignal()
+    
     def __init__(self, parent = None):
         super().__init__(parent)
         
@@ -25,7 +27,7 @@ class QDataExplorer(QWidget):
         self.__layout.addWidget(self.__control, 0)
         
         self.__control.db_path_recieved.connect(self.__load_csv_data)
-        self.__control.plot_changed.connect(self.__plotter.update_plot_state)
+        self.__control.selected_data_changed.connect(self.__plotter.update_plot_state)
         
         self.setLayout(self.__layout)
         
@@ -38,3 +40,4 @@ class QDataExplorer(QWidget):
         if DBStorage.load(path):
             self.__plotter.redraw_table()
             self.__control.update(DBStorage.titles())
+            self.data_loaded.emit()
