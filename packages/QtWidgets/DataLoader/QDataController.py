@@ -27,7 +27,7 @@ class QDataController(QWidget):
         self.setLayout(self.__layout)
         
         self.__load_button.clicked.connect(self.__load_db)
-        self.__selector.selected_data_changed.connect(lambda _ : self.selected_data_changed.emit() )
+        self.__selector.selected_data_changed.connect(self.selected_data_changed)
     
     
     def __load_db(self):

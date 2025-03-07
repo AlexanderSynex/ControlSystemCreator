@@ -5,6 +5,7 @@ from PyQt6.QtGui import *
 from .QDataController import QDataController
 from .QDataViewer import QDataViewer
 
+from packages.SystemModule.Connection import ConnectionManager
 from packages.Utils.DBStorage import DBStorage
 
 class QDataExplorer(QWidget):
@@ -38,6 +39,11 @@ class QDataExplorer(QWidget):
     def __load_csv_data(self, path : str):
         print('here')
         if DBStorage.load(path):
+            for link in DBStorage.titles():
+                ConnectionManager().get_instance(link)
             self.__plotter.redraw_table()
             self.__control.update(DBStorage.titles())
             self.data_loaded.emit()
+    
+    def load_emit(self):
+        self.data_loaded.emit()
