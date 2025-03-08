@@ -7,9 +7,11 @@ from packages import SystemManager
 from .Items import QSystemInfo
 
 class QSystemSelector(QListWidget):
+    system_selected = pyqtSignal(str)
+    
     def __init__(self, parent=None):
         super().__init__(parent)
-        
+        self.itemActivated.connect(lambda item: self.system_selected.emit(self.itemWidget(item).name()))
         
     def add_system(self, system_name):
         

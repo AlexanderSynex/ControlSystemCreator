@@ -26,8 +26,12 @@ class QSystemInfo(QWidget):
         self.__layout.addWidget(self.__output_label)
         
         self.update_system_info()
-    
-    
+
+        
+    def name(self):
+        return self.system_name
+
+        
     def update_system_info(self):
         
         if not SystemManager().exists(self.system_name):

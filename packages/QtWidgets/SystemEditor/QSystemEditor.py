@@ -5,15 +5,9 @@ from PyQt6.QtGui import *
 from .QSystemSelector import QSystemSelector
 from .QParametersEditor import QParametersEditor
 
-from packages.QtWidgets.SystemViewer import QSystemViewer
+from packages.SystemModule.Connection import (ConnectionManager)
 
-from .Items import QSystemInfo
-
-from packages.SystemModule.Connection import (ConnectionManager, 
-                                              ConnectionDataWrapper)
-
-from packages.SystemModule.System import (SystemManager, 
-                                          SystemDataWrapper)
+from packages.SystemModule.System import (SystemManager)
 
 
 
@@ -44,6 +38,8 @@ class QSystemEditor(QWidget):
         
         self.__layout.addWidget(__selector_container, 1)
         self.setLayout(self.__layout)
+        
+        self.__system_selector.system_selected.connect(self.__parameters_edit.display_parameters)
         
         
     def __create_system(self, params):

@@ -148,7 +148,7 @@ class MainWindow(QMainWindow):
                                                     directory=QDir().currentPath(), 
                                                     filter="JavaScript Object Notation Files (*.json)")
         
-        fileName = "./Data/system_test_no_system_weights.json"  #TODO
+        # fileName = "./Data/system_test_no_system_weights.json"  #TODO
         
         if not fileName:
             self.system_error.emit("No systems loaded")

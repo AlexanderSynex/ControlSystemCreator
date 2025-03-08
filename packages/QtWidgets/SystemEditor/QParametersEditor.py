@@ -5,7 +5,7 @@ from PyQt6.QtGui import *
 from .Items import *
 from .QSignalsList import QSignalList
 
-from packages.SystemModule.Connection import ConnectionManager
+from packages.SystemModule.System import SystemManager
 
 class QParametersEditor(QGroupBox):
     
@@ -71,6 +71,9 @@ class QParametersEditor(QGroupBox):
         
         self.create_button_pressed.emit(self.__get_system_attributes())
     
+    def display_clear(self):
+        self.__name_edit.setText("")
+        self.__signals_list.uncheck()
     
     def clear(self):
         self.clear_parameters_list()
@@ -111,3 +114,13 @@ class QParametersEditor(QGroupBox):
         dialog.signal_created.connect(lambda name : self.update_parameters_list([name]))
         
         dialog.exec()
+        
+        
+    def display_parameters(self, system_name : str):
+        if not SystemManager().exists(name=system_name):
+            return
+        
+        system = SystemManager().get_instance(name=system_name)
+        self.display_clear()
+        self.__name_edit.setText(system.name)
+        self.__signals_list.display_checked(inputs=system.input_keys, outputs=system.output_keys)

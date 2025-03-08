@@ -20,12 +20,22 @@ class QLinkItem(QWidget):
     
     def text(self) -> str:
         return self.__name
-        
-    def input(self) -> bool:
-        return self.__io_checker.input()
     
+    @property
+    def input(self) -> bool:
+        return self.__io_checker.input
+    
+    @input.setter
+    def input(self, checked : bool):
+        self.__io_checker.input = checked
+    
+    @property
     def output(self) -> bool:
-        return self.__io_checker.output()
+        return self.__io_checker.output
+    
+    @output.setter
+    def output(self, checked : bool):
+        self.__io_checker.output = checked
     
     def clear(self):
         self.__io_checker.clear()
