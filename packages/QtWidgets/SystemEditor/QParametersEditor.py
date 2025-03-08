@@ -84,19 +84,20 @@ class QParametersEditor(QGroupBox):
         return self.__name_edit.text()
     
     
-    def __get_checked_inputs(self):
-        return self.__signals_list
+    def __get_checked_inputs(self) -> list:
+        return self.__signals_list.checked_inputs()
     
     
-    def __get_number_outputs(self):
-        # return self.__output_number_edit.value()
-        return 0
-    
+    def __get_checked_outputs(self) -> list:
+        return self.__signals_list.checked_outputs()
+        
     
     def __get_system_attributes(self):
+        print(f"{self.__get_checked_inputs()=}")
         return dict(name=self.__get_name(), 
                     inputs=self.__get_checked_inputs(),
-                    outputs=self.__get_number_outputs())
+                    outputs=self.__get_checked_outputs())
+        
         
     def __create_signal(self):
         dialog = QSignalAdder()

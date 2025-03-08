@@ -48,19 +48,21 @@ class QSystemEditor(QWidget):
         
     def __create_system(self, params):
         name = params['name']
-        input_names = params['inputs']
-        output_number = params['outputs']
+        inputs = params['inputs']
+        outputs = params['outputs']
+        
+        print(f"{inputs=} {outputs=}")
         
         if SystemManager().exists(name):
             self.system_error.emit(f"System {name} already exists")
             return
         
-        ConnectionManager().get_instances(names=input_names)
-        output_names = ConnectionManager().create_internal_connections(output_number)
+        ConnectionManager().get_instances(names=inputs)
+        ConnectionManager().get_instances(names=outputs)
         
         sys = SystemManager().get_instance(name=name,
-                                           Inputs=input_names,
-                                           Outputs=output_names)
+                                           Inputs=inputs,
+                                           Outputs=outputs)
         
         if sys is None:
             self.system_error.emit(f"System {name} can not be created")
@@ -68,7 +70,6 @@ class QSystemEditor(QWidget):
         
         self.system_created.emit(name)
         
-        self.update_parameters(output_names)
         self.__system_selector.add_system(sys.name)
     
     

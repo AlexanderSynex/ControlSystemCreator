@@ -22,7 +22,7 @@ class QSignalList(QListWidget):
     def checked_inputs(self) -> list:
         signals=[]
         for row_i in range(self.count()):
-            item : QLinkItem = self.item(row_i)
+            item : QLinkItem = self.itemWidget(self.item(row_i))
             if item.input():
                 signals.append(item.text())
         return signals
@@ -30,9 +30,10 @@ class QSignalList(QListWidget):
     def checked_outputs(self) -> list:
         signals=[]
         for row_i in range(self.count()):
-            item : QLinkItem = self.item(row_i)
+            item : QLinkItem = self.itemWidget(self.item(row_i))
             if item.output():
                 signals.append(item.text())
+        print(f"{signals=}")
         return signals
     
     def uncheck(self):

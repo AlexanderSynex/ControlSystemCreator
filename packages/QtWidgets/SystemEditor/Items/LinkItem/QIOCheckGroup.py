@@ -24,21 +24,18 @@ class QIOCheckGroup(QWidget):
         self.__input.checkStateChanged.connect(lambda state: self.__revert_checkboxes(state, self.__output))
         self.__output.checkStateChanged.connect(lambda state: self.__revert_checkboxes(state, self.__input))
         self.__input.checkStateChanged.connect(lambda _: self.state_changed.emit(self.input(), self.output()))
+        self.__output.checkStateChanged.connect(lambda _: self.state_changed.emit(self.input(), self.output()))
     
     def __revert_checkboxes(self, state, opposite : QCheckBox):
         if (state is Qt.CheckState.Checked):
             opposite.setCheckState(Qt.CheckState.Unchecked)
-        
-    def __check_state(self, item : QCheckBox) -> bool:
-        return item.checkState is Qt.CheckState.Checked
-    
     
     def clear(self):
         self.__input.setCheckState(Qt.CheckState.Unchecked)
         self.__output.setCheckState(Qt.CheckState.Unchecked)
         
     def input(self) -> bool:
-        return self.__check_state(self.__input)
+        return self.__input.isChecked()
     
     def output(self) -> bool:
-        return self.__check_state(self.__output)
+        return self.__output.isChecked()
