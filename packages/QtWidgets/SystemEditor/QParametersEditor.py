@@ -3,8 +3,9 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
 from .Items import *
+from .QSignalsList import QSignalList
 
-import packages.SystemModule.System.SystemManager
+from packages.SystemModule.Connection import ConnectionManager
 
 class QParametersEditor(QGroupBox):
     
@@ -28,13 +29,14 @@ class QParametersEditor(QGroupBox):
         
         __input_gb = QGroupBox("Входные сигналы")
         __input_layout = QVBoxLayout()
-        self.__input_lw = QListWidget()
+        self.__inputs_list = QSignalList()
+        
         
         self.__add_button = QPushButton("Add signal")
         __input_layout.addWidget(self.__add_button)
         self.__add_button.clicked.connect(self.__create_signal)
         
-        __input_layout.addWidget(self.__input_lw)
+        __input_layout.addWidget(self.__inputs_list)
         __input_gb.setLayout(__input_layout)
         
         __output_gb = QGroupBox("Выходные сигналы")
@@ -80,14 +82,14 @@ class QParametersEditor(QGroupBox):
         
     
     def clear_parameters_list(self):
-        self.__input_lw.clear()
+        self.__inputs_list.clear()
     
     
     def update_parameters_list(self, parameters):
         for parameter in parameters:
-            item = QLinkItem(parameter)
-
-            self.__input_lw.addItem(item)
+            print(f"{parameter=}")
+            self.__inputs_list.add(parameter=parameter)
+            
     
     
     def __get_name(self):
@@ -96,10 +98,10 @@ class QParametersEditor(QGroupBox):
     
     def __get_checked_inputs(self):
         signals = []
-        for row_i in range(self.__input_lw.count()):
-            item = self.__input_lw.item(row_i)
-            if item.checkState() == Qt.CheckState.Checked:
-                signals.append(item.text())
+        # for row_i in range(self.__input_lw.count()):
+        #     item = self.__input_lw.item(row_i)
+        #     if item.checkState() == Qt.CheckState.Checked:
+        #         signals.append(item.text())
         
         return signals
     
