@@ -25,7 +25,7 @@ class SystemDataWrapper(metaclass=Singleton):
         if not SystemManager().exists(system_name):
             return None
         
-        return json.dumps(cls.to_dict(system_name=system_name), indent=2)
+        return json.dumps(cls.to_dict(system_name=system_name), indent=2, ensure_ascii=False)
 
     
     def all_to_dict(cls):
@@ -44,7 +44,7 @@ class SystemDataWrapper(metaclass=Singleton):
     
     
     def all_to_json(cls) -> str:
-        return json.dumps(cls.all_to_dict(), indent=2)
+        return json.dumps(cls.all_to_dict(), indent=2, ensure_ascii=False)
     
     
     def from_dict(cls, system_dict : dict):
