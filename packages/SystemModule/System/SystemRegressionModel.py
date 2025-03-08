@@ -9,12 +9,13 @@ class SystemRegressionModel():
         if inputs < 0: inputs = 1
         if outputs < 0: outputs = 1
         self.__model = keras.Sequential([])
+        self.__optimizer = keras.optimizers.Adam
+        self.
         self.__inputs = inputs
         self.__outputs = outputs
-        self.__hidden = [ max(self.__inputs, self.__outputs) * 2,
-                          max(self.__inputs, self.__outputs) * 3,
-                          max(self.__inputs, self.__outputs) * 2  ]
-    
+        self.__layers = [ max(inputs, outputs) * 2 for _ in range(max(inputs, outputs)) ]
+
+
     @property
     def inputs(self) -> int: return self.__inputs
     
@@ -37,7 +38,8 @@ class SystemRegressionModel():
     def model(self) -> keras.Sequential: return self.__model
     
     def __rebuild(self):
-        layers_ = [layers.Dense(self.__inputs)]
+        self.__layers = [ max(self.__inputs, self.outputs) * 2 for _ in range(max(self.__inputs, self.__outputs)) ]
+        layers_ = [layers.Dense(self.__inputs, activation=keras.activations.relu)]
         for layer in self.__hidden:
             layers_.append(layers.Dense(layer))
         layers_.append(layers.Dense(self.__outputs))
