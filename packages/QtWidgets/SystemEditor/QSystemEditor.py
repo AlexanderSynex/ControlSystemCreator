@@ -67,6 +67,7 @@ class QSystemEditor(QWidget):
         self.system_created.emit(name)
         
         self.__system_selector.add_system(sys.name)
+        self.__parameters_edit.display_clear()
     
     
     def update_parameters(self, loaded_names):
