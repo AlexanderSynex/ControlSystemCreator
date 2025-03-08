@@ -10,6 +10,8 @@ class SystemRegressionModel():
         if outputs < 0: outputs = 1
         self.__model = keras.Sequential([])
         self.__optimizer = keras.optimizers.Adam
+        self.__loss = keras.losses.MeanSquaredLogarithmicError
+        self.__metrics = [ keras.metrics.RootMeanSquaredError(), keras.metrics.RecallAtPrecision() ]
         self.
         self.__inputs = inputs
         self.__outputs = outputs
@@ -44,3 +46,8 @@ class SystemRegressionModel():
             layers_.append(layers.Dense(layer))
         layers_.append(layers.Dense(self.__outputs))
         self.__model = keras.Sequential(layers=layers_)
+        
+    def compile(self):
+        self.model.compile(optimizer=self.__optimizer,
+                           loss=self.__loss,
+                           metrics=self.__metrics)
