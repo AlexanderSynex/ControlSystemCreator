@@ -17,6 +17,15 @@ class QLinkItem(QWidget):
         self.__io_checker = QIOCheckGroup()
         self.__layout.addWidget(self.__name_label, stretch=1)
         self.__layout.addWidget(self.__io_checker, stretch=0, alignment=Qt.AlignmentFlag.AlignRight)
+    
+    def text(self) -> str:
+        return self.__name
         
+    def input(self) -> bool:
+        return self.__io_checker.input()
+    
+    def output(self) -> bool:
+        return self.__io_checker.output()
+    
     def clear(self):
         self.__io_checker.clear()

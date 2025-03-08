@@ -18,3 +18,24 @@ class QSignalList(QListWidget):
         item.setSizeHint(widget.minimumSizeHint())
         self.addItem(item)
         self.setItemWidget(item, widget)
+        
+    def checked_inputs(self) -> list:
+        signals=[]
+        for row_i in range(self.count()):
+            item : QLinkItem = self.item(row_i)
+            if item.input():
+                signals.append(item.text())
+        return signals
+    
+    def checked_outputs(self) -> list:
+        signals=[]
+        for row_i in range(self.count()):
+            item : QLinkItem = self.item(row_i)
+            if item.output():
+                signals.append(item.text())
+        return signals
+    
+    def uncheck(self):
+        for row_i in range(self.count()):
+            self.item(row_i).clear()
+            

@@ -29,29 +29,18 @@ class QParametersEditor(QGroupBox):
         
         __input_gb = QGroupBox("Входные сигналы")
         __input_layout = QVBoxLayout()
-        self.__inputs_list = QSignalList()
+        self.__signals_list = QSignalList()
         
         
         self.__add_button = QPushButton("Add signal")
         __input_layout.addWidget(self.__add_button)
         self.__add_button.clicked.connect(self.__create_signal)
         
-        __input_layout.addWidget(self.__inputs_list)
+        __input_layout.addWidget(self.__signals_list)
         __input_gb.setLayout(__input_layout)
-        
-        __output_gb = QGroupBox("Выходные сигналы")
-        __output_layout = QHBoxLayout()
-        self.__output_number_edit = QSpinBox()
-        self.__output_number_edit.setMinimum(1)
-        __output_number_name = QLabel("Количество сигналов")
-        __output_number_name.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        __output_layout.addWidget(__output_number_name, 0)
-        __output_layout.addWidget(self.__output_number_edit, 1)
-        __output_gb.setLayout(__output_layout)
         
         __io_layout = QVBoxLayout()
         __io_layout.addWidget(__input_gb)
-        __io_layout.addWidget(__output_gb)
         
         __create_button = QPushButton("Создать систему")
         
@@ -78,17 +67,16 @@ class QParametersEditor(QGroupBox):
     def clear(self):
         self.clear_parameters_list()
         self.__name_edit.setText("")
-        self.__output_number_edit.setValue(self.__output_number_edit.minimum())
+        self.__signals_list.uncheck()
         
     
     def clear_parameters_list(self):
-        self.__inputs_list.clear()
+        self.__signals_list.clear()
     
     
     def update_parameters_list(self, parameters):
         for parameter in parameters:
-            print(f"{parameter=}")
-            self.__inputs_list.add(parameter=parameter)
+            self.__signals_list.add(parameter=parameter)
             
     
     
@@ -97,17 +85,12 @@ class QParametersEditor(QGroupBox):
     
     
     def __get_checked_inputs(self):
-        signals = []
-        # for row_i in range(self.__input_lw.count()):
-        #     item = self.__input_lw.item(row_i)
-        #     if item.checkState() == Qt.CheckState.Checked:
-        #         signals.append(item.text())
-        
-        return signals
+        return self.__signals_list
     
     
     def __get_number_outputs(self):
-        return self.__output_number_edit.value()
+        # return self.__output_number_edit.value()
+        return 0
     
     
     def __get_system_attributes(self):
@@ -120,5 +103,3 @@ class QParametersEditor(QGroupBox):
         dialog.signal_created.connect(lambda name : self.update_parameters_list([name]))
         
         dialog.exec()
-        
-        
