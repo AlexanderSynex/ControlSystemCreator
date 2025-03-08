@@ -32,6 +32,11 @@ class QIOCheckGroup(QWidget):
     def __check_state(self, item : QCheckBox) -> bool:
         return item.checkState is Qt.CheckState.Checked
     
+    
+    def clear(self):
+        self.__input.setCheckState(Qt.CheckState.Unchecked)
+        self.__output.setCheckState(Qt.CheckState.Unchecked)
+        
     def input(self) -> bool:
         return self.__check_state(self.__input)
     

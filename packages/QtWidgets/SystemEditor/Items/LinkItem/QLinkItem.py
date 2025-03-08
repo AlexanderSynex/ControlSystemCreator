@@ -13,8 +13,10 @@ class QLinkItem(QWidget):
         
     def __init_UI(self):
         self.__layout = QHBoxLayout(self)
-        
         self.__name_label = QLabel(text=self.__name)
         self.__io_checker = QIOCheckGroup()
         self.__layout.addWidget(self.__name_label, stretch=1)
         self.__layout.addWidget(self.__io_checker, stretch=0, alignment=Qt.AlignmentFlag.AlignRight)
+        
+    def clear(self):
+        self.__io_checker.clear()
