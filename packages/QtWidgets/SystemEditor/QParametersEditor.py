@@ -56,9 +56,17 @@ class QParametersEditor(QGroupBox):
         self.setLayout(__layout)
     
     
+    def __is_correct_system_configuration(self) -> bool:
+        return self.__get_name() and self.__get_checked_inputs() and self.__get_checked_outputs()
+    
+    
     def create_system(self):
-        if not self.__get_name():
-            self.incorrect_system_parameters.emit("System name empty")
+        if not self.__is_correct_system_configuration():
+            faults = []
+            if not self.__get_name(): faults.append('System name')
+            if not self.__get_checked_inputs(): faults.append('Inputs')
+            if not self.__get_checked_outputs(): faults.append('Outputs')
+            self.incorrect_system_parameters.emit(f"Incorrect system configuration. Not specified: {', '.join(faults)}")
             return
         
         self.create_button_pressed.emit(self.__get_system_attributes())
@@ -93,7 +101,6 @@ class QParametersEditor(QGroupBox):
         
     
     def __get_system_attributes(self):
-        print(f"{self.__get_checked_inputs()=}")
         return dict(name=self.__get_name(), 
                     inputs=self.__get_checked_inputs(),
                     outputs=self.__get_checked_outputs())
