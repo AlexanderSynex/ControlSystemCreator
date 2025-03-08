@@ -45,11 +45,11 @@ class QSignalList(QListWidget):
             for signal in inputs:
                 for row_i in range(self.count()):
                     item : QLinkItem = self.itemWidget(self.item(row_i))
-                    if item.text() is signal:
+                    if item.text() == signal:
                         item.input = True
         if outputs:
             for signal in outputs:
                 for row_i in range(self.count()):
                     item : QLinkItem = self.itemWidget(self.item(row_i))
-                    if item.text() is signal:
+                    if item.text() == signal:
                         item.output = True

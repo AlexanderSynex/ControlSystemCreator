@@ -40,6 +40,8 @@ class MainWindow(QMainWindow):
         self.statusBar().addWidget(self.__status_bar_label)
         self.__clear_status()
         
+        self.__load_systems_action()
+        
     
     def __init_menu_bar(self):
         __file_menu = self.menuBar().addMenu("File")
@@ -143,12 +145,12 @@ class MainWindow(QMainWindow):
         
         
     def __load_systems_action(self):
-        fileName, _ = QFileDialog().getOpenFileName(parent=self,
-                                                    caption="Load systems info",
-                                                    directory=QDir().currentPath(), 
-                                                    filter="JavaScript Object Notation Files (*.json)")
+        # fileName, _ = QFileDialog().getOpenFileName(parent=self,
+        #                                             caption="Load systems info",
+        #                                             directory=QDir().currentPath(), 
+        #                                             filter="JavaScript Object Notation Files (*.json)")
         
-        # fileName = "./Data/system_test_no_system_weights.json"  #TODO
+        fileName = "./Data/system_db.json"  #TODO
         
         if not fileName:
             self.system_error.emit("No systems loaded")

@@ -119,7 +119,6 @@ class QParametersEditor(QGroupBox):
     def display_parameters(self, system_name : str):
         if not SystemManager().exists(name=system_name):
             return
-        
         system = SystemManager().get_instance(name=system_name)
         self.display_clear()
         self.__name_edit.setText(system.name)
