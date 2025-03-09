@@ -19,6 +19,7 @@ class SystemRegressionModel():
         self.__inputs = inputs
         self.__outputs = outputs
         self.__layers = [ ]
+        self.__accuracy = 0
         self.__rebuild()
 
 
@@ -58,6 +59,10 @@ class SystemRegressionModel():
                            loss=self.__loss,
                            metrics=self.__metrics)
     
+    @property
+    def mse(self):
+        return self.__accuracy
+    
     def fit(self, input_keys : list, output_keys : list, epochs=500):
         inputs, outputs = [], []
         for signal in input_keys:
@@ -72,3 +77,4 @@ class SystemRegressionModel():
         y = np.array(outputs).transpose()
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
         self.model.fit(X_train, y_train, epochs=epochs)
+        self.__accuracy = self.model.evaluate(X_test, y_test)[1]

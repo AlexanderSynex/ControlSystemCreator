@@ -1,1 +1,2 @@
 from .QNamedValueBox import QNamedValueBox
+from .QSystemNeuralInfoItem import QSystemNeuralInfo
