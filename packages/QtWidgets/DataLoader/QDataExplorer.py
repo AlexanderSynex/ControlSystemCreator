@@ -37,7 +37,6 @@ class QDataExplorer(QWidget):
         
 
     def __load_csv_data(self, path : str):
-        print('here')
         if DBStorage.load(path):
             for link in DBStorage.titles():
                 ConnectionManager().get_instance(link)

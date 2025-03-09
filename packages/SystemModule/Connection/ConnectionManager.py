@@ -10,7 +10,7 @@ class ConnectionManager(metaclass=Singleton):
     def __add(cls, link):
         name = link.name
         if name not in cls.__links:
-            print(f"ConnectionManager. Link added: {name}")
+            # print(f"ConnectionManager. Link added: {name}")
             cls.__links[name] = link
     
     
@@ -21,7 +21,7 @@ class ConnectionManager(metaclass=Singleton):
     
     
     def clear(cls):
-        print(f"ConnectionManager. Links deleted")
+        # print(f"ConnectionManager. Links deleted")
         cls.__links = {}
         cls.__internal_link_number = 1
     

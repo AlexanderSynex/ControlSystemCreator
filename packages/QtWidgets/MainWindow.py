@@ -5,6 +5,7 @@ from PyQt6.QtGui import *
 from packages.QtWidgets import QSystemEditor, QSystemViewer, QDataExplorer
 from packages.QtWidgets.SystemViewer.DrawingElements import SystemDrawingManager
 from packages.QtWidgets.SystemViewer.DrawingElements.DrawnItemsManager import DrawnItemsManager
+from packages.QtWidgets.SystemNeuralViewer import QSystemNeuralViewer
 
 from packages.SystemModule.Connection import (ConnectionManager, 
                                               ConnectionDataWrapper)
@@ -20,13 +21,17 @@ class MainWindow(QMainWindow):
         self.__viewer = QSystemViewer()
         self.__editor = QSystemEditor()
         self.__data_explorer = QDataExplorer()
+        self.__neural_viewer = QSystemNeuralViewer()
+        
         tab.addTab(self.__editor, "Editor")
         tab.addTab(self.__viewer, "Viewer")
+        tab.addTab(self.__neural_viewer, "Neural Network")
         tab.addTab(self.__data_explorer, "Dataset")
         
         self.__editor.system_created.connect(self.__viewer.redraw)
         self.__editor.system_created.connect(lambda name: self.__show_success_status(f"System {name} created"))
         self.__editor.systems_loaded.connect(self.__viewer.redraw)
+        self.__editor.systems_changed.connect(self.__neural_viewer.update_systems)
         self.__editor.system_error.connect(self.__show_error_status)
         self.__data_explorer.data_loaded.connect(self.__editor.update)
         

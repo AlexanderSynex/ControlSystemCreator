@@ -21,7 +21,7 @@ class QSignalDrawElement(QGraphicsItem):
 
         self._from_point, self._to_point = self._parse_link_to_points()
 
-        print(f"Signal={self.name} From=({self.from_point.x()}, {self.from_point.y()}), To={self.to_points}")
+        # print(f"Signal={self.name} From=({self.from_point.x()}, {self.from_point.y()}), To={self.to_points}")
     
     
     def update_value(self):

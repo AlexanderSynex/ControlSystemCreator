@@ -14,6 +14,7 @@ from packages.SystemModule.System import (SystemManager)
 class QSystemEditor(QWidget):
     system_created = pyqtSignal(str)
     systems_loaded = pyqtSignal()
+    systems_changed = pyqtSignal()
     
     system_error = pyqtSignal(str)
     
@@ -21,6 +22,8 @@ class QSystemEditor(QWidget):
         super().__init__(parent)
         
         self.__init_UI()
+        self.system_created.connect(lambda _: self.systems_changed.emit())
+        self.systems_loaded.connect(self.systems_changed.emit)
     
     
     def __init_UI(self):
@@ -85,3 +88,4 @@ class QSystemEditor(QWidget):
         
         self.__parameters_edit.clear_parameters_list()
         self.__parameters_edit.update_parameters_list(ConnectionManager().get_keys())
+        self.systems_changed.emit()
