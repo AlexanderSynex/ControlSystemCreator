@@ -78,8 +78,9 @@ class QSystemViewer(QMainWindow):
     
     
     def __send_signal(self, signal_name):
-        SystemNeuralModeling.feed_forward_from_signal(signal_name)
-        pass
+        # SystemNeuralModeling.feed_forward_from_signal(signal_name)
+        SystemNeuralModeling.recalculate()
+        # pass
             
             
     def redraw(self):
