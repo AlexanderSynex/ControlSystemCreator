@@ -31,6 +31,7 @@ class QNeuralModelViewer(QGraphicsView):
                                       , legend=True
                                       , show_dimension=True
                                       , min_xy=min(self.size().width(), self.size().height()) / 2
+                                      , scale_z=0.5
                                       )
                       )
         self.__scene.addPixmap(QPixmap.fromImage(img))

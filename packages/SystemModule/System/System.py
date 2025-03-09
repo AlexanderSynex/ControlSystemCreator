@@ -35,6 +35,10 @@ class System(object):
         self.__weight = max(self.__weight, weight)
     
     @property
+    def model_wrapper(self):
+        return self.__model
+    
+    @property
     def model(self):
         return self.__model.model
     
@@ -43,7 +47,7 @@ class System(object):
         self.__Inputs.append(name)
         
         self.weight = ConnectionManager().get_instance(name).weight
-        self.__model.inputs += 1
+        self.__model.inputs = len(self.__Inputs)
     
     
     def add_inputs(self, Inputs):
@@ -55,7 +59,7 @@ class System(object):
         ConnectionManager().get_instance(name)
         self.__Outputs.append(name)
         ConnectionManager().get_instance(name).weight = self.__weight + 1
-        self.__model.outputs += 1
+        self.__model.outputs = len(self.__Outputs)
     
         
     def add_outputs(self, Outputs):
@@ -73,3 +77,7 @@ class System(object):
         for i, link in enumerate(self.__Outputs):
             print(f"{i + 1}:\t{link} weight={ConnectionManager().get_instance(link).weight}")
         print(f"{self.__model.model=}")
+        
+    def fit(self):
+        self.model_wrapper.fit(input_keys  = self.__Inputs, 
+                               output_keys = self.__Outputs)
