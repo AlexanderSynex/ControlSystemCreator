@@ -20,7 +20,7 @@ class SystemNeuralModeling(metaclass=Singleton):
             if ConnectionManager().exists(input):
                 x[i] = ConnectionManager().get_instance(input).value
         x = np.array([[xi] for xi in x]).reshape((1, -1))
-        y = system.model.predict(x)
+        y = system.model(x)
         print(f"System={system_name}")
         for i, output in enumerate(system.output_keys):
             if ConnectionManager().exists(output):
@@ -75,18 +75,30 @@ class SystemNeuralModeling(metaclass=Singleton):
                 inputs.add(signal_name)
         
         # set of systems
-        systems = deque()
+        unique_systems = set()
         for signal_name in inputs:
             signal : Connection = ConnectionManager().get_instance(signal_name)
             for system_name in signal.to_systems:
                 if (SystemManager().exists(system_name)):
-                    systems.append(system_name)
+                    unique_systems.add(system_name)
+        
+        systems = deque()
+        for system in unique_systems:
+            systems.append(system)
+        
+        visited : set = set()
+        
+        print(f"START ITERATING OVER: {systems}")
         
         while systems:
             system_name = systems.popleft()
+            if system_name in visited:
+                continue
+            visited.add(system_name)
+            print(f"System.{system_name}")
             cls.feed_forward_system(system_name=system_name)
             # feed forward
-            neighbours = cls.system_next_systems(system_name=system_name)
+            neighbours : set = cls.system_next_systems(system_name=system_name)
             for system in neighbours:
                 systems.append(system)
         
