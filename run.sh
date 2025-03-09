@@ -3,5 +3,3 @@
 
 source ./.venv/bin/activate
 clear && python main.py || deactivate
-
-deactivate

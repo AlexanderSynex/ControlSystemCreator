@@ -2,7 +2,6 @@ import tensorflow as tf
 import keras
 from keras import layers
 
-
 class SystemRegressionModel():
     def __init__(self, inputs : int = 1, outputs : int = 1):
         super().__init__()
@@ -11,7 +10,7 @@ class SystemRegressionModel():
         self.__model = keras.Sequential([])
         self.__optimizer = keras.optimizers.Adam
         self.__loss = keras.losses.MeanSquaredLogarithmicError
-        self.__metrics = [ keras.metrics.RootMeanSquaredError(), keras.metrics.RecallAtPrecision() ]
+        self.__metrics = [ keras.metrics.RootMeanSquaredError() ]
         self.__inputs = inputs
         self.__outputs = outputs
         self.__layers = [ max(inputs, outputs) * 2 for _ in range(max(inputs, outputs)) ]
@@ -40,10 +39,11 @@ class SystemRegressionModel():
     
     def __rebuild(self):
         self.__layers = [ max(self.__inputs, self.outputs) * 2 for _ in range(max(self.__inputs, self.__outputs)) ]
-        layers_ = [layers.Dense(self.__inputs, activation=keras.activations.relu)]
-        for layer in self.__hidden:
-            layers_.append(layers.Dense(layer))
-        layers_.append(layers.Dense(self.__outputs))
+        layers_ = [layers.Input(shape=(self.__inputs, 1), name='Input'), 
+                   layers.Dense(self.__inputs, activation=keras.activations.relu)]
+        for layer in self.__layers:
+            layers_.append(layers.Dense(layer, activation=keras.activations.relu))
+        layers_.append(layers.Dense(self.__outputs, activation=keras.activations.relu, name='Output'))
         self.__model = keras.Sequential(layers=layers_)
         
     def compile(self):
