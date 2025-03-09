@@ -12,7 +12,6 @@ class SystemRegressionModel():
         self.__optimizer = keras.optimizers.Adam
         self.__loss = keras.losses.MeanSquaredLogarithmicError
         self.__metrics = [ keras.metrics.RootMeanSquaredError(), keras.metrics.RecallAtPrecision() ]
-        self.
         self.__inputs = inputs
         self.__outputs = outputs
         self.__layers = [ max(inputs, outputs) * 2 for _ in range(max(inputs, outputs)) ]
@@ -51,3 +50,4 @@ class SystemRegressionModel():
         self.model.compile(optimizer=self.__optimizer,
                            loss=self.__loss,
                            metrics=self.__metrics)
+        
