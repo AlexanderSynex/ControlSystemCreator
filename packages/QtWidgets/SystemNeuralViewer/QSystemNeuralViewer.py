@@ -8,6 +8,7 @@ from packages.SystemModule.System import (SystemManager)
 
 from packages.QtWidgets.SystemEditor import QSystemSelector
 from .QNeuralModelViewer import QNeuralModelViewer
+from .Items import QNamedValueBox
 
 class QSystemNeuralViewer(QWidget):
     def __init__(self, parent = None):
@@ -21,12 +22,14 @@ class QSystemNeuralViewer(QWidget):
         
         self.__model_viewer = QNeuralModelViewer()
         self.__system_selector = QSystemSelector()
+        self.__epochs_selector = QNamedValueBox('Epochs', 10, 10000)
         self.__fit_button = QPushButton('Fit models')
         
         
         
         control_layout = QVBoxLayout()
         control_layout.addWidget(self.__system_selector, 1)
+        control_layout.addWidget(self.__epochs_selector, 0)
         control_layout.addWidget(self.__fit_button, 0)
         
         self.__layout.addWidget(self.__model_viewer, 4)
@@ -47,4 +50,4 @@ class QSystemNeuralViewer(QWidget):
             print(f"Compiling {system_name=}")
             system = SystemManager().get_instance(system_name)
             system.model_wrapper.compile()
-            system.fit()
+            system.fit(self.__epochs_selector.value)

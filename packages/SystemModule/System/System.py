@@ -78,6 +78,7 @@ class System(object):
             print(f"{i + 1}:\t{link} weight={ConnectionManager().get_instance(link).weight}")
         print(f"{self.__model.model=}")
         
-    def fit(self):
+    def fit(self, epochs=100):
         self.model_wrapper.fit(input_keys  = self.__Inputs, 
-                               output_keys = self.__Outputs)
+                               output_keys = self.__Outputs,
+                               epochs=epochs)

@@ -66,7 +66,7 @@ class QSignalDrawElement(QGraphicsItem):
     # Собирает точки для конкретной связи
     def _parse_link_to_points(self):
         p1, p2s = None, []
-        margin = 50
+        margin = 100
         
         if not ConnectionManager().exists(self._name):
             return p1, p2s

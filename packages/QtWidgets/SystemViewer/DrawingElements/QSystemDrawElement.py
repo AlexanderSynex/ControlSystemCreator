@@ -7,7 +7,7 @@ from packages.SystemModule import SystemManager, ConnectionManager
 from .QConnectionPort import QConnectionPort
 
 class QSystemDrawElement(QGraphicsItem):
-    __width, __height = 100, 50
+    __width, __height = 250, 100
     __font_size = 10
     def __init__(self, name='', parent=None):
         super().__init__(parent=parent)
