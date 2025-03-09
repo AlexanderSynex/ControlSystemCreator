@@ -78,3 +78,5 @@ class SystemRegressionModel():
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
         self.model.fit(X_train, y_train, epochs=epochs)
         self.__accuracy = self.model.evaluate(X_test, y_test)[1]
+        
+        print(self.model.summary())

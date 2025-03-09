@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 
+import numpy as np
+
 from .QConnectionList import QConnectionList
 from .QSystemDrawer import QSystemDrawer
 
@@ -14,6 +16,7 @@ from packages.SystemModule.Connection import (ConnectionManager,
 from packages.SystemModule.System import (SystemManager,
                                           SystemDataWrapper)
 
+from packages.SystemModule.System.SystemNeuralModeling import SystemNeuralModeling
 
 class QSystemViewer(QMainWindow):
     def __init__(self, parent = None):
@@ -50,6 +53,7 @@ class QSystemViewer(QMainWindow):
         
         SystemDrawingManager().set_canvas(self.__graph_view)
         
+        self.__signals_lw.value_changed.connect(self.__send_signal)
         self.__signals_lw.value_changed.connect(self.redraw)
         
     
@@ -72,6 +76,12 @@ class QSystemViewer(QMainWindow):
         self.__signals_lw.clear()
         self.__signals_lw.add_signals(ConnectionManager().get_keys())
     
+    
+    def __send_signal(self, signal_name):
+        SystemNeuralModeling.feed_forward_from_signal(signal_name)
+        pass
+            
+            
     def redraw(self):
         self.reload_signals()
         SystemDrawingManager().draw()

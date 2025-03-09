@@ -1,5 +1,6 @@
 from .SystemModule.System import (SystemManager,
-                                  SystemDataWrapper)
+                                  SystemDataWrapper,
+                                  SystemNeuralModeling)
 from .SystemModule.Connection import (ConnectionManager, 
                                       ConnectionDataWrapper)
 from .QtWidgets import (QSystemEditor, 
